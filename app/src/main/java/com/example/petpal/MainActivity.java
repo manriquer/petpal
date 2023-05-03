@@ -2,20 +2,62 @@ package com.example.petpal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.AsyncTask;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 public class MainActivity extends AppCompatActivity {
-    ProgressBar progressBar;
+    ProgressBar progress;
+    private static String TAG = "MainActivity ";
+    Button btnDescarga;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-         progressBar = (ProgressBar) findViewById(R.id.determinate_linear_indicator);
-        int maxValue=progressBar.getMax(); // get maximum value of the progress bar
+         progress = (ProgressBar) findViewById(R.id.barra);
+
+
+
+
+
+
+            // progress.setIndeterminate(true);
+            progress.setProgress(0);
+
+
+            final int totalProgressTime = 100;
+            final Thread t = new Thread() {
+                @Override
+                public void run() {
+                    int jumpTime = 0;
+
+                    while(jumpTime < totalProgressTime) {
+                        try {
+                            jumpTime += 2;
+                            progress.setProgress(jumpTime);
+                            sleep(50);
+                        }
+                        catch (InterruptedException e) {
+                            Log.e(TAG, e.getMessage());
+                        }
+                    }
+
+                }
+            };
+            t.start();
+
+
     }
+
+
+
+
+
 
 
 

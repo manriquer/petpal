@@ -8,22 +8,32 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="328dp"
-        android:layout_height="595dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="349dp"
+        android:layout_height="589dp"
+        android:layout_marginStart="16dp"
 
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icono" />
 
     <ProgressBar
-        android:id="@+id/determinate_linear_indicator"
+        android:id="@+id/barra"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="334dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="348dp"
+        android:layout_height="11dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:progressDrawable="@drawable/greenprogress"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.545" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
