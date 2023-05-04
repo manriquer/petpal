@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 public class MainActivity extends AppCompatActivity {
     ProgressBar progress;
     private static String TAG = "MainActivity ";
-    Button btnDescarga;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                             Log.e(TAG, e.getMessage());
                         }
                     }
+                    Intent intent = new Intent(MainActivity.this, Principal.class);
+                    startActivity(intent);
 
                 }
             };
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 
 
