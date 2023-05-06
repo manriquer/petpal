@@ -16,13 +16,14 @@
 
     <ImageView
         android:id="@+id/foto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="120dp"
+        android:src="@drawable/outline_add_circle_outline_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+         />
 
     <TextView
         android:id="@+id/info"
