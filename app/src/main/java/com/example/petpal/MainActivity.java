@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.e(TAG, e.getMessage());
                         }
                     }
-                    Intent intent = new Intent(MainActivity.this, Principal.class);
+                    Intent intent = new Intent(MainActivity.this, InicioGoogle.class);
                     startActivity(intent);
 
                 }
