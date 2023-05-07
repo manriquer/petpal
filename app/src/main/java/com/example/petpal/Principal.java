@@ -1,11 +1,19 @@
 package com.example.petpal;
 
+import static com.example.petpal.R.drawable.baseline_add_24;
+import static com.example.petpal.R.drawable.icono;
+import static com.example.petpal.R.drawable.outline_add_24;
+
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -14,11 +22,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Principal extends AppCompatActivity {
 
     TextView texto;
-    ListView lista;
+    ListView listViewAnimales;
     Button añadir;
 
     @Override
@@ -28,17 +37,17 @@ public class Principal extends AppCompatActivity {
 
         ImageView image = findViewById(R.id.petpal);
         texto = findViewById(R.id.textView4);
-        lista = findViewById(R.id.lista);
+        listViewAnimales = findViewById(R.id.lista);
          añadir = findViewById(R.id.button);
-        ArrayList<String> listaDeNombres = new ArrayList<>();
-        listaDeNombres.add("Juan Provisional");
-        listaDeNombres.add("María");
-        listaDeNombres.add("Pedro");
+        List<Animal> animales = new ArrayList<>();
+      Animal gato= new Animal("Stanis","salvaje","15/06/2003", baseline_add_24 );
+        animales.add(gato);
+        Animal perro = new Animal("Heba","sfinx","23/03/2000A.C",outline_add_24);
+        animales.add(perro);
+        AdaptadorAnimales adaptador = new AdaptadorAnimales(animales, this);
+        listViewAnimales.setAdapter(adaptador);
 
-        ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaDeNombres);
-        lista.setAdapter(adaptador);
-
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewAnimales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Obtén el elemento seleccionado del ListView
@@ -59,4 +68,50 @@ public class Principal extends AppCompatActivity {
             }
         });
     }
+    public class AdaptadorAnimales extends BaseAdapter {
+        private List<Animal> animales;
+        private Context contexto;
+
+        public AdaptadorAnimales(List<Animal> animales, Context contexto) {
+            this.animales = animales;
+            this.contexto = contexto;
+        }
+
+        @Override
+        public int getCount() {
+            return animales.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return animales.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                LayoutInflater inflater = LayoutInflater.from(contexto);
+                convertView = inflater.inflate(R.layout.fila_animal, null);
+            }
+
+            ImageView imagen = convertView.findViewById(R.id.imagen_animal);
+            TextView nombre = convertView.findViewById(R.id.nombre_animal);
+            TextView raza = convertView.findViewById(R.id.raza_animal);
+            TextView fechaNacimiento = convertView.findViewById(R.id.fecha_nacimiento_animal);
+
+            Animal animal = animales.get(position);
+            imagen.setImageResource(animal.getFoto());
+            nombre.setText(animal.getNombre());
+            raza.setText(animal.getRaza());
+            fechaNacimiento.setText(animal.getFechaNacimiento());
+
+            return convertView;
+        }
+    }
+
 }

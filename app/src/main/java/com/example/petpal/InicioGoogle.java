@@ -1,5 +1,6 @@
 package com.example.petpal;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class InicioGoogle extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio_google);
-
+        Button siguiente = findViewById(R.id.siguiente);
         mGoogleSignInButton = findViewById(R.id.sign_in);
         mGoogleSignInButton.setSize(SignInButton.SIZE_STANDARD);
         mGoogleSignInButton.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,10 @@ public class InicioGoogle extends Activity {
             }
         });
     }
-
+    public void onClick(View v){
+        Intent intent = new Intent(InicioGoogle.this, Principal.class);
+        startActivity(intent);
+    }
     // [START on_start_check_user]
     @Override
     public void onStart() {
