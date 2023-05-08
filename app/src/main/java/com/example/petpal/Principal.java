@@ -6,6 +6,10 @@ import static com.example.petpal.R.drawable.outline_add_24;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -41,9 +45,15 @@ public class Principal extends AppCompatActivity implements  MiDialogoPersonaliz
         listViewAnimales = findViewById(R.id.lista);
          añadir = findViewById(R.id.button);
         animales = new ArrayList<>();
-      Animal gato= new Animal("Stanis","salvaje","3kg","15/06/2003", baseline_add_24 );
+
+
+
+// Convertimos el drawable a bitmap
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), baseline_add_24);
+
+        Animal gato= new Animal("Stanis","salvaje","3kg","15/06/2003", bitmap );
         animales.add(gato);
-        Animal perro = new Animal("Heba","sfinx","100kg","23/03/2000A.C",outline_add_24);
+        Animal perro = new Animal("Heba","sfinx","100kg","23/03/2000A.C",bitmap);
         animales.add(perro);
 
 
@@ -75,9 +85,9 @@ public class Principal extends AppCompatActivity implements  MiDialogoPersonaliz
 
 
     }
-    public void onAgregarAnimal(String nombre, String raza, String peso, String fechaNacimiento) {
+    public void onAgregarAnimal(String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
         // Agrega los datos ingresados al ListView
-        Animal nuevoAnimal = new Animal(nombre, raza, peso,fechaNacimiento, baseline_add_24);
+        Animal nuevoAnimal = new Animal(nombre, raza, peso,fechaNacimiento, imagen);
         ((AdaptadorAnimales)listViewAnimales.getAdapter()).addAnimal(nuevoAnimal);
     }
 
@@ -122,7 +132,10 @@ public class Principal extends AppCompatActivity implements  MiDialogoPersonaliz
             TextView fechaNacimiento = convertView.findViewById(R.id.fecha_nacimiento_animal);
 
             Animal animal = animales.get(position);
-            imagen.setImageResource(animal.getFoto());
+
+            imagen.setImageBitmap(animal.getFoto());
+
+
             nombre.setText(animal.getNombre());
             raza.setText(animal.getRaza());
             peso.setText(animal.getPeso());

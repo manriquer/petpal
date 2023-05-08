@@ -1,5 +1,7 @@
 package com.example.petpal;
 
+import android.graphics.Bitmap;
+
 public class Animal {
     private String nombre;
     private String raza;
@@ -8,11 +10,11 @@ public class Animal {
 
 
     private String fechaNacimiento;
-    private int foto; // Aquí asumimos que la foto es un recurso drawable
+    private Bitmap foto; // Aquí asumimos que la foto es un recurso drawable
     // Constructor, getters y setters
 
 
-    public Animal(String nombre, String raza, String peso, String fechaNacimiento, int foto) {
+    public Animal(String nombre, String raza, String peso, String fechaNacimiento, Bitmap foto) {
         this.nombre = nombre;
         this.raza = raza;
         this.peso = peso;
@@ -52,11 +54,11 @@ public class Animal {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public int getFoto() {
+    public Bitmap getFoto() {
         return foto;
     }
 
-    public void setFoto(int foto) {
+    public void setFoto(Bitmap foto) {
         this.foto = foto;
     }
 
