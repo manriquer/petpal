@@ -24,11 +24,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Principal extends AppCompatActivity {
+public class Principal extends AppCompatActivity implements  MiDialogoPersonalizado.OnAgregarAnimalListener{
 
     TextView texto;
     ListView listViewAnimales;
     Button añadir;
+    List<Animal> animales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,13 @@ public class Principal extends AppCompatActivity {
         texto = findViewById(R.id.textView4);
         listViewAnimales = findViewById(R.id.lista);
          añadir = findViewById(R.id.button);
-        List<Animal> animales = new ArrayList<>();
-      Animal gato= new Animal("Stanis","salvaje","15/06/2003", baseline_add_24 );
+        animales = new ArrayList<>();
+      Animal gato= new Animal("Stanis","salvaje","3kg","15/06/2003", baseline_add_24 );
         animales.add(gato);
-        Animal perro = new Animal("Heba","sfinx","23/03/2000A.C",outline_add_24);
+        Animal perro = new Animal("Heba","sfinx","100kg","23/03/2000A.C",outline_add_24);
         animales.add(perro);
+
+
         AdaptadorAnimales adaptador = new AdaptadorAnimales(animales, this);
         listViewAnimales.setAdapter(adaptador);
 
@@ -67,7 +70,20 @@ public class Principal extends AppCompatActivity {
                 dialogo.show(getSupportFragmentManager(), "MiDialogoPersonalizado");
             }
         });
+
+
+
+
     }
+    public void onAgregarAnimal(String nombre, String raza, String peso, String fechaNacimiento) {
+        // Agrega los datos ingresados al ListView
+        Animal nuevoAnimal = new Animal(nombre, raza, peso,fechaNacimiento, baseline_add_24);
+        ((AdaptadorAnimales)listViewAnimales.getAdapter()).addAnimal(nuevoAnimal);
+    }
+
+
+
+
     public class AdaptadorAnimales extends BaseAdapter {
         private List<Animal> animales;
         private Context contexto;
@@ -102,15 +118,22 @@ public class Principal extends AppCompatActivity {
             ImageView imagen = convertView.findViewById(R.id.imagen_animal);
             TextView nombre = convertView.findViewById(R.id.nombre_animal);
             TextView raza = convertView.findViewById(R.id.raza_animal);
+            TextView peso = convertView.findViewById(R.id.peso_animal);
             TextView fechaNacimiento = convertView.findViewById(R.id.fecha_nacimiento_animal);
 
             Animal animal = animales.get(position);
             imagen.setImageResource(animal.getFoto());
             nombre.setText(animal.getNombre());
             raza.setText(animal.getRaza());
+            peso.setText(animal.getPeso());
             fechaNacimiento.setText(animal.getFechaNacimiento());
 
             return convertView;
+        }
+
+        public void addAnimal(Animal animal) {
+            animales.add(animal);
+            notifyDataSetChanged();
         }
     }
 
