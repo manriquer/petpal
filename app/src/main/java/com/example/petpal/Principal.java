@@ -25,10 +25,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Principal extends AppCompatActivity implements  MiDialogoPersonalizado.OnAgregarAnimalListener{
+
+
+
+// ...
 
     TextView texto;
     ListView listViewAnimales;
@@ -39,6 +46,9 @@ public class Principal extends AppCompatActivity implements  MiDialogoPersonaliz
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.principal);
+
+
+
 
         ImageView image = findViewById(R.id.petpal);
         texto = findViewById(R.id.textView4);
@@ -125,22 +135,22 @@ public class Principal extends AppCompatActivity implements  MiDialogoPersonaliz
                 convertView = inflater.inflate(R.layout.fila_animal, null);
             }
 
-            ImageView imagen = convertView.findViewById(R.id.imagen_animal);
+
             TextView nombre = convertView.findViewById(R.id.nombre_animal);
             TextView raza = convertView.findViewById(R.id.raza_animal);
             TextView peso = convertView.findViewById(R.id.peso_animal);
             TextView fechaNacimiento = convertView.findViewById(R.id.fecha_nacimiento_animal);
-
+            ImageView imagen = convertView.findViewById(R.id.imagen_animal);
             Animal animal = animales.get(position);
 
-            imagen.setImageBitmap(animal.getFoto());
+
 
 
             nombre.setText(animal.getNombre());
             raza.setText(animal.getRaza());
             peso.setText(animal.getPeso());
             fechaNacimiento.setText(animal.getFechaNacimiento());
-
+            imagen.setImageBitmap(animal.getFoto());
             return convertView;
         }
 

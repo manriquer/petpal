@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="165dp"
-        android:layout_height="162dp"
+        android:layout_width="244dp"
+        android:layout_height="255dp"
         android:layout_marginStart="36dp"
         android:layout_marginBottom="84dp"
         android:orientation="vertical"
@@ -16,8 +16,9 @@
 
         <ImageButton
             android:id="@+id/imagen_animal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="134dp"
+            android:layout_height="122dp"
+            android:scaleType="centerCrop"
             app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
         <TextView

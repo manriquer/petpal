@@ -2,6 +2,8 @@ package com.example.petpal;
 
 import android.graphics.Bitmap;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 public class Animal {
     private String nombre;
     private String raza;
@@ -13,6 +15,22 @@ public class Animal {
     private Bitmap foto; // Aquí asumimos que la foto es un recurso drawable
     // Constructor, getters y setters
 
+    public JSONObject toJSON() throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("campo1", this.nombre);
+        jsonObject.put("campo2", this.raza);
+        jsonObject.put("campo2", this.peso);
+        jsonObject.put("campo2", this.fechaNacimiento);
+        // añadir los demás campos aquí
+
+        return jsonObject;
+    }
+    public Animal(String nombre, String raza, String peso, String fechaNacimiento) {
+        this.nombre = nombre;
+        this.raza = raza;
+        this.peso = peso;
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     public Animal(String nombre, String raza, String peso, String fechaNacimiento, Bitmap foto) {
         this.nombre = nombre;

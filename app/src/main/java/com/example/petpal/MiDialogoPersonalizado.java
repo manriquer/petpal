@@ -16,13 +16,20 @@
     import android.widget.Button;
     import android.widget.ImageView;
     import android.widget.TextView;
-
+    import org.json.JSONObject;
     import androidx.fragment.app.DialogFragment;
+
+    import com.fasterxml.jackson.core.JsonProcessingException;
+    import com.fasterxml.jackson.databind.ObjectMapper;
+    import com.google.firebase.database.DatabaseReference;
+    import com.google.firebase.database.FirebaseDatabase;
 
     import java.io.IOException;
     import java.util.Date;
 
+
     public class MiDialogoPersonalizado extends DialogFragment {
+        private DatabaseReference mDatabase;
         TextView raza, eraza, peso, epeso, año,eaño,nombre,enombre;
 
         Button añadir;
@@ -31,6 +38,8 @@
         private static final int REQUEST_IMAGE_GALLERY = 2;
 
         private ImageView mImageView;
+
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View vista = inflater.inflate(R.layout.mi_dialogo, container, false);
@@ -44,6 +53,7 @@
             año= vista.findViewById(R.id.año);
             eaño= vista.findViewById(R.id.eaño);
             // Agrega cualquier functionalism adicional aquí
+            mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
             mImageView = vista.findViewById(R.id.añadirimagen);
@@ -56,6 +66,7 @@
             añadir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     String nombre = enombre.getText().toString();
                     String raza = eraza.getText().toString();
                     String peso = epeso.getText().toString();
@@ -66,6 +77,13 @@
                     // Llama al método onAgregarAnimal() de la interfaz
                     OnAgregarAnimalListener listener = (OnAgregarAnimalListener) getActivity();
                     listener.onAgregarAnimal(nombre, raza, peso, fechaNacimiento, imagen);
+                    Animal animal = new Animal(nombre, raza, peso, fechaNacimiento);
+
+
+                   /* mDatabase.child("mascotas").child(animal.getNombre()).setValue(animal);*/
+
+
+
 
                     dismiss(); // Cerrar el diálogo
                 }
@@ -73,6 +91,8 @@
 
             return vista;
         }
+
+
         private void showImageDialog() {
             final CharSequence[] options = {"Tomar foto", "Elegir de la galería", "Cancelar"};
 
@@ -111,10 +131,15 @@
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
 
-                        mImageView.setImageBitmap(bitmap);
+                        // Escalar la imagen al tamaño del ImageView
+                        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, mImageView.getWidth(), mImageView.getHeight(), true);
+
+                        // Establecer la imagen escalada en el ImageView
+                        mImageView.setImageBitmap(scaledBitmap);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                 }
             }
         }

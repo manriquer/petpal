@@ -81,6 +81,7 @@ public class InicioGoogle extends Activity {
     public void onClick(View v){
         Intent intent = new Intent(InicioGoogle.this, Principal.class);
         startActivity(intent);
+
     }
     // [START on_start_check_user]
     @Override
