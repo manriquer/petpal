@@ -55,12 +55,13 @@
             android:id="@+id/darpaseo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:onClick="paseo"
+            android:text="Dar paseo" />
 
         <Button
-            android:id="@+id/añadirrecorrido"
+            android:id="@+id/recordatorio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Añadir recordatorio" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
