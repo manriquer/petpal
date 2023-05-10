@@ -6,6 +6,7 @@
     import android.content.DialogInterface;
     import android.content.Intent;
     import android.graphics.Bitmap;
+    import android.graphics.BitmapFactory;
     import android.graphics.drawable.BitmapDrawable;
     import android.net.Uri;
     import android.os.Bundle;
@@ -16,6 +17,7 @@
     import android.widget.Button;
     import android.widget.ImageView;
     import android.widget.TextView;
+    import android.widget.Toast;
 
     import androidx.fragment.app.DialogFragment;
 
@@ -39,10 +41,10 @@
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View vista = inflater.inflate(R.layout.mi_dialogo, container, false);
-            nombre= vista.findViewById(R.id.nombre);
-            enombre= vista.findViewById(R.id.enombre);
+            nombre = vista.findViewById(R.id.nombre);
+            enombre = vista.findViewById(R.id.enombre);
             anyadir = vista.findViewById(R.id.anyadir);
-            raza= vista.findViewById(R.id.raza);
+            raza = vista.findViewById(R.id.raza);
             eraza = vista.findViewById(R.id.eraza);
             peso = vista.findViewById(R.id.peso);
             epeso = vista.findViewById(R.id.epeso);
@@ -50,9 +52,7 @@
             eanyo = vista.findViewById(R.id.eanyo);
             // Agrega cualquier functionalism adicional aquí
             mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
-            mImageView = vista.findViewById(R.id.añadirimagen);
+            mImageView = vista.findViewById(R.id.anyadirimagen);
             mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -67,21 +67,26 @@
                     String raza = eraza.getText().toString();
                     String peso = epeso.getText().toString();
                     String fechaNacimiento = eanyo.getText().toString();
-                    Bitmap imagen = ((BitmapDrawable)mImageView.getDrawable()).getBitmap(); //obtiene la imagen del ImageView
+                    Bitmap imagen;
 
+                    if (mImageView.getDrawable() == null) {
+                        imagen = BitmapFactory.decodeResource(getResources(), R.drawable.icono);
+                    } else {
+                        imagen = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
+                    }
 
-                    // Llama al método onAgregarAnimal() de la interfaz
-                    OnAgregarAnimalListener listener = (OnAgregarAnimalListener) getActivity();
-                    listener.onAgregarAnimal(nombre, raza, peso, fechaNacimiento, imagen);
-                    Animal animal = new Animal(nombre, raza, peso, fechaNacimiento);
+                    if (nombre.isEmpty() || raza.isEmpty() || peso.isEmpty() || fechaNacimiento.isEmpty()) {
+                        Toast.makeText(getActivity(), "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
+                    }  else {
+                        // Llama al método onAgregarAnimal() de la interfaz
+                        OnAgregarAnimalListener listener = (OnAgregarAnimalListener) getActivity();
+                        listener.onAgregarAnimal(nombre, raza, peso, fechaNacimiento, imagen);
+                        Animal animal = new Animal(nombre, raza, peso, fechaNacimiento);
 
+                        /* mDatabase.child("mascotas").child(animal.getNombre()).setValue(animal);*/
 
-                   /* mDatabase.child("mascotas").child(animal.getNombre()).setValue(animal);*/
-
-
-
-
-                    dismiss(); // Cerrar el diálogo
+                        dismiss(); // Cerrar el diálogo
+                    }
                 }
             });
 

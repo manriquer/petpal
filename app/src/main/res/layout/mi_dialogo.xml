@@ -14,35 +14,21 @@
         <LinearLayout
             android:layout_width="414dp"
             android:layout_height="502dp"
-            android:orientation="vertical"
-          >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/nombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Nombre:" />
-
                 <EditText
-                    android:id="@+id/enombre"
+                    android:id="@+id/eraza"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Introduzca Nombre"
+                    android:hint="Introduzca raza"
                     android:inputType="text" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/raza"
@@ -51,28 +37,12 @@
                     android:layout_weight="1"
                     android:text="Raza" />
 
-                <EditText
-                    android:id="@+id/eraza"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Introduzca nombre"
-                    android:inputType="text" />
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/peso"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Peso" />
 
                 <EditText
                     android:id="@+id/epeso"
@@ -83,12 +53,28 @@
                     android:hint="Introduzca Peso"
                     android:inputType="text" />
 
+                <TextView
+                    android:id="@+id/peso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Peso" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/eanyo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Introduzca año"
+                    android:inputType="date" />
 
                 <TextView
                     android:id="@+id/anyo"
@@ -97,15 +83,38 @@
                     android:layout_weight="1"
                     android:text="Año" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <EditText
-                    android:id="@+id/eanyo"
+                    android:id="@+id/enombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="date" />
+                    android:hint="Introduzca Nombre"
+                    android:inputType="text" />
 
+                <TextView
+                    android:id="@+id/nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nombre:" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/anyadirimagen"
+
+                android:layout_width="202dp"
+
+                android:layout_height="171dp"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@drawable/ic_launcher_background" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,26 +127,19 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Foto" />
-
-                <ImageView
-                    android:id="@+id/añadirimagen"
-
-                    android:layout_width="202dp"
-
-                    android:layout_height="171dp"
-                    android:scaleType="centerCrop"
-                    tools:srcCompat="@drawable/ic_launcher_background" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/anyadir"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="añadir" />
-
         </LinearLayout>
+
+        <Button
+            android:id="@+id/anyadir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="añadir"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="501dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
