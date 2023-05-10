@@ -16,23 +16,19 @@
     import android.widget.Button;
     import android.widget.ImageView;
     import android.widget.TextView;
-    import org.json.JSONObject;
+
     import androidx.fragment.app.DialogFragment;
 
-    import com.fasterxml.jackson.core.JsonProcessingException;
-    import com.fasterxml.jackson.databind.ObjectMapper;
     import com.google.firebase.database.DatabaseReference;
     import com.google.firebase.database.FirebaseDatabase;
 
     import java.io.IOException;
-    import java.util.Date;
 
 
     public class MiDialogoPersonalizado extends DialogFragment {
         private DatabaseReference mDatabase;
-        TextView raza, eraza, peso, epeso, año,eaño,nombre,enombre;
-
-        Button añadir;
+        TextView raza, eraza, peso, epeso, anyo, eanyo, nombre, enombre;
+        Button anyadir;
 
         private static final int REQUEST_IMAGE_CAPTURE = 1;
         private static final int REQUEST_IMAGE_GALLERY = 2;
@@ -45,13 +41,13 @@
             View vista = inflater.inflate(R.layout.mi_dialogo, container, false);
             nombre= vista.findViewById(R.id.nombre);
             enombre= vista.findViewById(R.id.enombre);
-            añadir = vista.findViewById(R.id.añadir);
+            anyadir = vista.findViewById(R.id.anyadir);
             raza= vista.findViewById(R.id.raza);
             eraza = vista.findViewById(R.id.eraza);
             peso = vista.findViewById(R.id.peso);
             epeso = vista.findViewById(R.id.epeso);
-            año= vista.findViewById(R.id.año);
-            eaño= vista.findViewById(R.id.eaño);
+            anyo = vista.findViewById(R.id.anyo);
+            eanyo = vista.findViewById(R.id.eanyo);
             // Agrega cualquier functionalism adicional aquí
             mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -63,14 +59,14 @@
                     showImageDialog();
                 }
             });
-            añadir.setOnClickListener(new View.OnClickListener() {
+            anyadir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     String nombre = enombre.getText().toString();
                     String raza = eraza.getText().toString();
                     String peso = epeso.getText().toString();
-                    String fechaNacimiento = eaño.getText().toString();
+                    String fechaNacimiento = eanyo.getText().toString();
                     Bitmap imagen = ((BitmapDrawable)mImageView.getDrawable()).getBitmap(); //obtiene la imagen del ImageView
 
 

@@ -91,14 +91,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/año"
+                    android:id="@+id/anyo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Año" />
 
                 <EditText
-                    android:id="@+id/eaño"
+                    android:id="@+id/eanyo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -130,7 +130,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/añadir"
+                android:id="@+id/anyadir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
