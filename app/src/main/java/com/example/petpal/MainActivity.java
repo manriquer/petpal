@@ -26,19 +26,16 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements  MiDialogoPersonalizado.OnAgregarAnimalListener{
 
-
-
-// ...
-
     TextView texto;
     ListView listViewAnimales;
-    Button añadir;
+    Button anyadir;
     List<Animal> animales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Handle the splash screen transition.
-        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+        //SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
 
 
         super.onCreate(savedInstanceState);
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements  MiDialogoPersona
         ImageView image = findViewById(R.id.petpal);
         texto = findViewById(R.id.textView4);
         listViewAnimales = findViewById(R.id.lista);
-         añadir = findViewById(R.id.button);
+         anyadir = findViewById(R.id.button);
         animales = new ArrayList<>();
 
 
@@ -80,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements  MiDialogoPersona
             }
         });
 
-        añadir.setOnClickListener(new View.OnClickListener() {
+        anyadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MiDialogoPersonalizado dialogo = new MiDialogoPersonalizado();
