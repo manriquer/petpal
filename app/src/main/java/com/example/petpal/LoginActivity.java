@@ -1,6 +1,5 @@
 package com.example.petpal;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class InicioGoogle extends Activity {
+public class LoginActivity extends Activity {
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -43,7 +40,7 @@ public class InicioGoogle extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.inicio_google);
+        setContentView(R.layout.activity_login);
         Button siguiente = findViewById(R.id.siguiente);
         mGoogleSignInButton = findViewById(R.id.sign_in);
         mGoogleSignInButton.setSize(SignInButton.SIZE_STANDARD);
@@ -79,7 +76,7 @@ public class InicioGoogle extends Activity {
         });
     }
     public void onClick(View v){
-        Intent intent = new Intent(InicioGoogle.this, Principal.class);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
 
     }

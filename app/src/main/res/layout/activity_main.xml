@@ -3,38 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="349dp"
-        android:layout_height="589dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="24dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="320dp"
+        android:layout_marginBottom="164dp"
         android:background="@null"
         android:backgroundTint="@null"
+        android:drawableStart="@drawable/baseline_add_24"
+        android:textColor="#EF1414"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/petpal"
+        android:layout_width="97dp"
+        android:layout_height="91dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icono" />
+        app:srcCompat="@drawable/letras" />
 
-    <ProgressBar
-        android:id="@+id/barra"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="348dp"
-        android:layout_height="11dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
-        android:progressDrawable="@drawable/greenprogress"
+    <ListView
+        android:id="@+id/lista"
+        android:layout_width="281dp"
+        android:layout_height="384dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="204dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="200dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="104dp"
+        android:text="Mascotas (modificar)"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.545" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
