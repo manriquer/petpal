@@ -20,6 +20,9 @@ public class PerfilMascota extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.perfil_mascota);
+
+        Animal animal = (Animal) getIntent().getSerializableExtra("animal");
+
         logo = findViewById(R.id.petpal);
         foto = findViewById(R.id.foto);
         info = findViewById(R.id.info);
@@ -38,6 +41,7 @@ public class PerfilMascota extends AppCompatActivity {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
+
     private void mostrarConfirmacion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Con mas mascotas?");

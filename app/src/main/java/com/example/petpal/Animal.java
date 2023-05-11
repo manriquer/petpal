@@ -4,7 +4,10 @@ import android.graphics.Bitmap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-public class Animal {
+
+import java.io.Serializable;
+
+public class Animal implements Serializable {
     private String nombre;
     private String raza;
     private String peso;
@@ -12,7 +15,7 @@ public class Animal {
 
 
     private String fechaNacimiento;
-    private Bitmap foto; // Aquí asumimos que la foto es un recurso drawable
+    private transient Bitmap foto; // Aquí asumimos que la foto es un recurso drawable
     // Constructor, getters y setters
 
     public JSONObject toJSON() throws JSONException {

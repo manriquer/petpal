@@ -14,12 +14,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imagen_animal"
             android:layout_width="134dp"
             android:layout_height="122dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+            app:srcCompat="@android:mipmap/sym_def_app_icon"
+            android:focusable="false"
+            android:clickable="false"/>
 
         <TextView
             android:id="@+id/nombre_animal"
