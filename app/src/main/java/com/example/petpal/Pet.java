@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class Animal implements Serializable {
+public class Pet implements Serializable {
     private String nombre;
     private String raza;
     private String peso;
@@ -28,14 +28,14 @@ public class Animal implements Serializable {
 
         return jsonObject;
     }
-    public Animal(String nombre, String raza, String peso, String fechaNacimiento) {
+    public Pet(String nombre, String raza, String peso, String fechaNacimiento) {
         this.nombre = nombre;
         this.raza = raza;
         this.peso = peso;
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Animal(String nombre, String raza, String peso, String fechaNacimiento, Bitmap foto) {
+    public Pet(String nombre, String raza, String peso, String fechaNacimiento, Bitmap foto) {
         this.nombre = nombre;
         this.raza = raza;
         this.peso = peso;
@@ -83,7 +83,7 @@ public class Animal implements Serializable {
         this.foto = foto;
     }
 
-    public Animal() {
+    public Pet() {
     }
 }
 

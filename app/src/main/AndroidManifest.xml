@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,51 +12,28 @@
         android:theme="@style/Theme.PetpalTheme"
         tools:targetApi="31">
 
-        <!--
-             TODO: Before you run your application, you need a Google Maps API key.
-
-             To get one, follow the directions here:
-
-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
-             Once you have your API key (it starts with "AIza"), define a new property in your
-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-        -->
-
-<!--        <activity-->
-<!--            android:name=".SplashScreenActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-
         <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>
-                            <action android:name="android.intent.action.MAIN" />
-                            <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
             android:name=".MainActivity"
             android:parentActivityName=".LoginActivity"
             android:theme="@style/Theme.PetpalTheme">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
 
         <activity
-            android:name=".PerfilMascota"
+            android:name=".PetProfileActivity"
             android:parentActivityName=".MainActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -69,18 +43,23 @@
             android:name=".MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps"
-            android:parentActivityName=".PerfilMascota">
+            android:parentActivityName=".PetProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PerfilMascota" />
+                android:value=".PetProfileActivity" />
         </activity>
+
+        <!--
+               TODO: Cambiar forma de acceso a la API key de Maps:
+               Once you have your API key (it starts with "AIza"), define a new property in your
+               project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+               "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+          -->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC7tdpxsHi1k3p22Xbgy1EkJxf2w4vNWo0" />
 
     </application>
-
-
 
 </manifest>

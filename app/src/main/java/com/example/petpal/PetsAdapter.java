@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class AdaptadorAnimales extends BaseAdapter {
-    private List<Animal> animales;
+public class PetsAdapter extends BaseAdapter {
+    private List<Pet> animales;
     private Context contexto;
 
-    public AdaptadorAnimales(List<Animal> animales, Context contexto) {
+    public PetsAdapter(List<Pet> animales, Context contexto) {
         this.animales = animales;
         this.contexto = contexto;
     }
@@ -38,7 +38,7 @@ public class AdaptadorAnimales extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(contexto);
-            convertView = inflater.inflate(R.layout.fila_animal, null);
+            convertView = inflater.inflate(R.layout.pet_row, null);
         }
 
 
@@ -47,21 +47,21 @@ public class AdaptadorAnimales extends BaseAdapter {
         TextView peso = convertView.findViewById(R.id.peso_animal);
         TextView fechaNacimiento = convertView.findViewById(R.id.fecha_nacimiento_animal);
         ImageView imagen = convertView.findViewById(R.id.imagen_animal);
-        Animal animal = animales.get(position);
+        Pet pet = animales.get(position);
 
 
 
 
-        nombre.setText(animal.getNombre());
-        raza.setText(animal.getRaza());
-        peso.setText(animal.getPeso());
-        fechaNacimiento.setText(animal.getFechaNacimiento());
-        imagen.setImageBitmap(animal.getFoto());
+        nombre.setText(pet.getNombre());
+        raza.setText(pet.getRaza());
+        peso.setText(pet.getPeso());
+        fechaNacimiento.setText(pet.getFechaNacimiento());
+        imagen.setImageBitmap(pet.getFoto());
         return convertView;
     }
 
-    public void addAnimal(Animal animal) {
-        animales.add(animal);
+    public void addAnimal(Pet pet) {
+        animales.add(pet);
         notifyDataSetChanged();
     }
 }

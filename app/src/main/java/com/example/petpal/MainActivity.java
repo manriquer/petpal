@@ -2,36 +2,31 @@ package com.example.petpal;
 
 import static com.example.petpal.R.drawable.baseline_add_24;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.splashscreen.SplashScreen;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements  MiDialogoPersonalizado.OnAgregarAnimalListener{
+public class MainActivity extends AppCompatActivity implements  AddPetDialog.OnAgregarAnimalListener{
 
     TextView texto;
     ListView listViewAnimales;
     Button anyadir;
-    List<Animal> animales;
+    List<Pet> animales;
 
 
     @Override
@@ -47,12 +42,12 @@ public class MainActivity extends AppCompatActivity implements  MiDialogoPersona
         // Convertimos el drawable a bitmap
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), baseline_add_24);
 
-        Animal gato= new Animal("Stanis","salvaje","3kg","15/06/2003", bitmap );
+        Pet gato= new Pet("Stanis","salvaje","3kg","15/06/2003", bitmap );
         animales.add(gato);
-        Animal perro = new Animal("faeba","sfinx","100kg","23/03/2000A.C",bitmap);
+        Pet perro = new Pet("faeba","sfinx","100kg","23/03/2000A.C",bitmap);
         animales.add(perro);
 
-        AdaptadorAnimales adaptador = new AdaptadorAnimales(animales, this);
+        PetsAdapter adaptador = new PetsAdapter(animales, this);
         listViewAnimales.setAdapter(adaptador);
 
         listViewAnimales.setOnTouchListener(new View.OnTouchListener() {
@@ -67,10 +62,10 @@ public class MainActivity extends AppCompatActivity implements  MiDialogoPersona
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Obtener el animal seleccionado
-                Animal animal = (Animal) parent.getItemAtPosition(position);
+                Pet pet = (Pet) parent.getItemAtPosition(position);
                 // Crea un Intent para abrir la nueva actividad y establece el elemento seleccionado como dato extra
-                Intent intent = new Intent(MainActivity.this, PerfilMascota.class);
-                intent.putExtra("animal", animal);
+                Intent intent = new Intent(MainActivity.this, PetProfileActivity.class);
+                intent.putExtra("animal", pet);
                 startActivity(intent);
             }
         });
@@ -80,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements  MiDialogoPersona
         anyadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MiDialogoPersonalizado dialogo = new MiDialogoPersonalizado();
+                AddPetDialog dialogo = new AddPetDialog();
                 dialogo.show(getSupportFragmentManager(), "MiDialogoPersonalizado");
             }
         });
@@ -91,8 +86,8 @@ public class MainActivity extends AppCompatActivity implements  MiDialogoPersona
     }
     public void onAgregarAnimal(String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
         // Agrega los datos ingresados al ListView
-        Animal nuevoAnimal = new Animal(nombre, raza, peso,fechaNacimiento, imagen);
-        ((AdaptadorAnimales)listViewAnimales.getAdapter()).addAnimal(nuevoAnimal);
+        Pet nuevoPet = new Pet(nombre, raza, peso,fechaNacimiento, imagen);
+        ((PetsAdapter)listViewAnimales.getAdapter()).addAnimal(nuevoPet);
     }
 
 

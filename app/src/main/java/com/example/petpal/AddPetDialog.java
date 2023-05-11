@@ -1,7 +1,6 @@
     package com.example.petpal;
 
     import static android.app.Activity.RESULT_OK;
-
     import android.app.AlertDialog;
     import android.content.DialogInterface;
     import android.content.Intent;
@@ -18,17 +17,12 @@
     import android.widget.ImageView;
     import android.widget.TextView;
     import android.widget.Toast;
-
     import androidx.fragment.app.DialogFragment;
-
     import com.google.firebase.database.DatabaseReference;
     import com.google.firebase.database.FirebaseDatabase;
-
     import java.io.IOException;
 
-
-    public class MiDialogoPersonalizado extends DialogFragment {
-        private DatabaseReference mDatabase;
+    public class AddPetDialog extends DialogFragment {
         TextView raza, eraza, peso, epeso, anyo, eanyo, nombre, enombre;
         Button anyadir;
 
@@ -40,7 +34,7 @@
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View vista = inflater.inflate(R.layout.mi_dialogo, container, false);
+            View vista = inflater.inflate(R.layout.add_pet_dialog, container, false);
             nombre = vista.findViewById(R.id.nombre);
             enombre = vista.findViewById(R.id.enombre);
             anyadir = vista.findViewById(R.id.anyadir);
@@ -51,7 +45,7 @@
             anyo = vista.findViewById(R.id.anyo);
             eanyo = vista.findViewById(R.id.eanyo);
             // Agrega cualquier functionalism adicional aquí
-            mDatabase = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mImageView = vista.findViewById(R.id.anyadirimagen);
             mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,7 +75,7 @@
                         // Llama al método onAgregarAnimal() de la interfaz
                         OnAgregarAnimalListener listener = (OnAgregarAnimalListener) getActivity();
                         listener.onAgregarAnimal(nombre, raza, peso, fechaNacimiento, imagen);
-                        Animal animal = new Animal(nombre, raza, peso, fechaNacimiento);
+                        Pet pet = new Pet(nombre, raza, peso, fechaNacimiento);
 
                         /* mDatabase.child("mascotas").child(animal.getNombre()).setValue(animal);*/
 
