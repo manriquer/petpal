@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PetPal"
+        android:theme="@style/PetpalTheme"
         tools:targetApi="31">
 
         <!--
@@ -64,12 +64,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Principal" />
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC7tdpxsHi1k3p22Xbgy1EkJxf2w4vNWo0" />
     </application>
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
-
 </manifest>
