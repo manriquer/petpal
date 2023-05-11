@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Pet Pal</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="page_title">PETPAL</string>
+    <string name="edit">edit</string>
+    <string name="content_description_search">search</string>
+    <string name="favorite">favorite</string>
+    <string name="content_description_favorite">favorite</string>
+    <string name="content_description_more">more</string>
+    <string name="more">more</string>
 </resources>

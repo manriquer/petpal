@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 
 import java.util.ArrayList;
@@ -34,6 +39,27 @@ public class MainActivity extends AppCompatActivity implements  AddPetDialog.OnA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId()== R.id.more) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+        });
+
+
         ImageView image = findViewById(R.id.petpal);
         texto = findViewById(R.id.textView4);
         listViewAnimales = findViewById(R.id.lista);
@@ -50,14 +76,6 @@ public class MainActivity extends AppCompatActivity implements  AddPetDialog.OnA
         PetsAdapter adaptador = new PetsAdapter(animales, this);
         listViewAnimales.setAdapter(adaptador);
 
-        listViewAnimales.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.d("ListView", "onTouch: " + event);
-                return false;
-            }
-        });
-
         listViewAnimales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,8 +88,6 @@ public class MainActivity extends AppCompatActivity implements  AddPetDialog.OnA
             }
         });
 
-
-
         anyadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,20 +95,13 @@ public class MainActivity extends AppCompatActivity implements  AddPetDialog.OnA
                 dialogo.show(getSupportFragmentManager(), "MiDialogoPersonalizado");
             }
         });
-
-
-
-
     }
+
     public void onAgregarAnimal(String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
         // Agrega los datos ingresados al ListView
         Pet nuevoPet = new Pet(nombre, raza, peso,fechaNacimiento, imagen);
         ((PetsAdapter)listViewAnimales.getAdapter()).addAnimal(nuevoPet);
     }
-
-
-
-
 
 
 }
