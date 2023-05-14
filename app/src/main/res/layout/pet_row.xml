@@ -3,48 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="150dp">
 
-    <LinearLayout
-        android:layout_width="244dp"
-        android:layout_height="255dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="84dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+    <ImageView
+        android:id="@+id/imagen_animal"
+        android:layout_width="134dp"
+        android:layout_height="122dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
-        <ImageView
-            android:id="@+id/imagen_animal"
-            android:layout_width="134dp"
-            android:layout_height="122dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@android:mipmap/sym_def_app_icon"
-            android:focusable="false"
-            android:clickable="false"/>
+    <TextView
+        android:id="@+id/nombre_animal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toEndOf="@+id/imagen_animal"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/nombre_animal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+    <TextView
+        android:id="@+id/raza_animal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagen_animal"
+        app:layout_constraintTop_toBottomOf="@+id/nombre_animal" />
 
-        <TextView
-            android:id="@+id/raza_animal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+    <TextView
+        android:id="@+id/peso_animal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagen_animal"
+        app:layout_constraintTop_toBottomOf="@+id/raza_animal" />
 
-        <TextView
-            android:id="@+id/peso_animal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+    <TextView
+        android:id="@+id/fecha_nacimiento_animal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagen_animal"
+        app:layout_constraintTop_toBottomOf="@+id/peso_animal" />
 
-        <TextView
-            android:id="@+id/fecha_nacimiento_animal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
