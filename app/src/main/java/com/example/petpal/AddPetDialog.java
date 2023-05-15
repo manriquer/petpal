@@ -14,6 +14,7 @@
     import android.view.View;
     import android.view.ViewGroup;
     import android.widget.Button;
+    import android.widget.EditText;
     import android.widget.ImageView;
     import android.widget.TextView;
     import android.widget.Toast;
@@ -23,7 +24,9 @@
     import java.io.IOException;
 
     public class AddPetDialog extends DialogFragment {
-        TextView raza, eraza, peso, epeso, anyo, eanyo, nombre, enombre;
+
+        TextView nameTextView, breedTextView, weightTextView, dateTextView;
+        EditText nameEditText, breedEditText, weightEditText, dateEditText;
         Button anyadir;
 
         private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -35,15 +38,15 @@
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View vista = inflater.inflate(R.layout.add_pet_dialog, container, false);
-            nombre = vista.findViewById(R.id.nombre);
-            enombre = vista.findViewById(R.id.enombre);
+            nameTextView = vista.findViewById(R.id.nombre);
+            nameEditText = vista.findViewById(R.id.enombre);
             anyadir = vista.findViewById(R.id.anyadir);
-            raza = vista.findViewById(R.id.raza);
-            eraza = vista.findViewById(R.id.eraza);
-            peso = vista.findViewById(R.id.peso);
-            epeso = vista.findViewById(R.id.epeso);
-            anyo = vista.findViewById(R.id.anyo);
-            eanyo = vista.findViewById(R.id.eanyo);
+            breedTextView = vista.findViewById(R.id.raza);
+            breedEditText = vista.findViewById(R.id.eraza);
+            weightTextView = vista.findViewById(R.id.peso);
+            weightEditText = vista.findViewById(R.id.epeso);
+            dateTextView = vista.findViewById(R.id.anyo);
+            dateEditText = vista.findViewById(R.id.eanyo);
             // Agrega cualquier functionalism adicional aquí
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mImageView = vista.findViewById(R.id.anyadirimagen);
@@ -57,10 +60,10 @@
                 @Override
                 public void onClick(View v) {
 
-                    String nombre = enombre.getText().toString();
-                    String raza = eraza.getText().toString();
-                    String peso = epeso.getText().toString();
-                    String fechaNacimiento = eanyo.getText().toString();
+                    String nombre = nameEditText.getText().toString();
+                    String raza = breedEditText.getText().toString();
+                    String peso = weightEditText.getText().toString();
+                    String fechaNacimiento = dateEditText.getText().toString();
                     Bitmap imagen;
 
                     if (mImageView.getDrawable() == null) {

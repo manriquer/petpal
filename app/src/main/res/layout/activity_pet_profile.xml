@@ -20,7 +20,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="120dp"
-        android:src="@drawable/outline_add_circle_outline_24"
+        android:src="@drawable/icono"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
          />
