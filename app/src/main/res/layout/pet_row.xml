@@ -24,8 +24,7 @@
                 android:id="@+id/imagen_animal"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/icono" />
+                android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:layout_width="0dp"

@@ -51,6 +51,12 @@ public class PetProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    public void reco(View view) {
+        Intent intent = new Intent(this, DistanceActivity.class);
+        startActivity(intent);
+    }
+
     private void mostrarConfirmacion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Con mas mascotas?");

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
         // LISTA:
         animales = new ArrayList<>();
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icono);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back_24dp);
         Pet gato= new Pet("Stanis","salvaje","3kg","15/06/2003", bitmap);
         animales.add(gato);
         Pet perro = new Pet("faeba","sfinx","100kg","23/03/2000A.C", bitmap);
