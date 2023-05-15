@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 public class PetProfileActivity extends AppCompatActivity {
-    ImageView logo,foto;
+
+    ImageView foto;
     TextView info;
     Button darpaseo, anyadirreco;
 
@@ -20,9 +23,16 @@ public class PetProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_profile);
 
+        // TOP APP BAR:
+        MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
         Pet pet = (Pet) getIntent().getSerializableExtra("animal");
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
-        logo = findViewById(R.id.petpal);
         foto = findViewById(R.id.foto);
         info = findViewById(R.id.info);
         darpaseo = findViewById(R.id.darpaseo);

@@ -9,4 +9,5 @@
     <string name="content_description_more">more</string>
     <string name="more">more</string>
     <string name="fab_content_desc">Añadir mascota</string>
+    <string name="petpal">Petpal</string>
 </resources>

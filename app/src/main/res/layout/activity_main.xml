@@ -9,17 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewAnimales"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
@@ -30,18 +19,23 @@
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/top_app_bar"
-                app:navigationIcon="@drawable/ic_arrow_back_24dp"
                 app:titleCentered="true">
-
                 <ImageView
                     android:id="@+id/logo"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:src="@drawable/logo_petpal" />
+                    android:src="@drawable/logo_petpal"
+                    android:contentDescription="@string/petpal" />
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAnimales"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floating_action_button"

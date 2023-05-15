@@ -1,59 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imagen_animal"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/icono" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/nombre_animal"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/raza_animal"
+            <ImageView
+                android:id="@+id/imagen_animal"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icono" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nombre_animal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <TextView
+                    android:id="@+id/raza_animal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Raza"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <TextView
+                    android:id="@+id/peso_animal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Peso"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <TextView
+                    android:id="@+id/fecha_nacimiento_animal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha nacimiento"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Raza"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-        <TextView
-            android:id="@+id/peso_animal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Peso"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-        <TextView
-            android:id="@+id/fecha_nacimiento_animal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Fecha nacimiento"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-    </LinearLayout>
-
-</LinearLayout>
-
-
-
+            android:layout_height="wrap_content" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 <!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
 <!--    xmlns:tools="http://schemas.android.com/tools"-->

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.WindowCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,22 +32,22 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
         // TOP APP BAR:
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
-        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId()== R.id.more) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
+//        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onBackPressed();
+//            }
+//        });
+//        topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                if(item.getItemId()== R.id.more) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//            }
+//        });
 
         // FAB BOTTON:
         fab = findViewById(R.id.floating_action_button);
