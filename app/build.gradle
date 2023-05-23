@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.gms:google-services:4.3.15'
 
+
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
