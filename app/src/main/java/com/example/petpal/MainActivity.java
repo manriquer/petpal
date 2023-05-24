@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.WindowCompat;
@@ -26,7 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAgregarAnimalListener {
-    private  DatabaseReference mDatabase;
+
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     RecyclerView recyclerViewAnimales;
     List<Pet> animales;
     FloatingActionButton fab;
@@ -63,28 +68,11 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Write a message to the database
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("strings");
 
-                myRef.setValue("Hello, World!");
-                // Read from the database
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // This method is called once with the initial value and again
-                        // whenever data at this location is updated.
-                        String value = dataSnapshot.getValue(String.class);
-                        Log.d(TAG, "Value is: " + value);
-                        System.out.println(value);
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-                        Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
+
+
+
                 AddPetDialog dialogo = new AddPetDialog();
                 dialogo.show(getSupportFragmentManager(), "MiDialogoPersonalizado");
             }
@@ -94,14 +82,59 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
 
         animales = new ArrayList<>();
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back_24dp);
-        Pet gato= new Pet("Stanis","salvaje","3kg","15/06/2003", bitmap);
+        /*Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back_24dp);*/
+        /*Pet gato= new Pet("Stanis","salvaje","3kg","15/06/2003", bitmap);
         animales.add(gato);
 
 
         Pet perro = new Pet("faeba","sfinx","100kg","23/03/2000A.C", bitmap);
-        animales.add(perro);
+        animales.add(perro);*/
 
+
+
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        mRootRef.child("mascotas").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    String nombre = childSnapshot.child("nombre").getValue(String.class);
+                    String raza = childSnapshot.child("raza").getValue(String.class);
+                    String peso = childSnapshot.child("peso").getValue(String.class);
+                    String fechaNacimiento = childSnapshot.child("fechaNacimiento").getValue(String.class);
+
+                    // Crea un nuevo objeto Pet con los datos obtenidos
+                    Pet mascota = new Pet(nombre, raza, peso, fechaNacimiento, null);
+
+                    // Agrega la mascota a la lista de animales
+                    animales.add(mascota);
+                }
+
+                // Actualiza el adaptador del RecyclerView si es necesario
+                adaptador.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Maneja el error de lectura de la base de datos
+            }
+        });
+
+
+
+
+        // Write a message to the database
+
+      /*  DatabaseReference mMessagesRef = mRootRef.child("mascotas");*/
+
+
+
+
+
+       /* Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back_24dp);
+        Pet friendlyMessage = new Pet("Stanis","salvaje","3kg","15/06/2003", bitmap);*/
+
+       /* mMessagesRef.push().setValue(gato);
+        mMessagesRef.push().setValue(perro);*/
 
         recyclerViewAnimales = findViewById(R.id.recyclerViewAnimales);
         adaptador = new PetsAdapter(animales, this);

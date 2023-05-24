@@ -76,11 +76,24 @@
                         Toast.makeText(getActivity(), "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
                     }  else {
                         // Llama al método onAgregarAnimal() de la interfaz
-                        OnAgregarAnimalListener listener = (OnAgregarAnimalListener) getActivity();
-                        listener.onAgregarAnimal(nombre, raza, peso, fechaNacimiento, imagen);
+                        /*OnAgregarAnimalListener listener = (OnAgregarAnimalListener) getActivity();
+                        listener.onAgregarAnimal(nombre, raza, peso, fechaNacimiento, imagen);*/
+
+
+                        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                          DatabaseReference mMessagesRef = mRootRef.child("mascotas");
+
                         Pet pet = new Pet(nombre, raza, peso, fechaNacimiento);
 
-                        /* mDatabase.child("mascotas").child(animal.getNombre()).setValue(animal);*/
+                        mMessagesRef.push().setValue(pet);
+
+
+
+
+
+
+
+
 
                         dismiss(); // Cerrar el diálogo
                     }
@@ -144,6 +157,7 @@
 
         public interface OnAgregarAnimalListener {
             void onAgregarAnimal(String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen);
+
         }
 
     }

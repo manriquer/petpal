@@ -28,6 +28,7 @@
                     android:src="@drawable/logo_petpal"
                     android:contentDescription="@string/petpal" />
             </com.google.android.material.appbar.MaterialToolbar>
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "540319065188",
+    "firebase_url": "https://pet-pal-20cca-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "pet-pal-20cca",
     "storage_bucket": "pet-pal-20cca.appspot.com"
   },
@@ -14,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "540319065188-g84ksjg2p4petopl5k7a2bid8d8eqesk.apps.googleusercontent.com",
+          "client_id": "540319065188-35ps5va8bqfc15lrptj9n18qvnoib92k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.petpal",
+            "certificate_hash": "f40ecfd72249d17ccd8999d34c11f2e61e04a032"
+          }
+        },
+        {
+          "client_id": "540319065188-ko37ufdmlluerso7cb11kd9mjpfnufvj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

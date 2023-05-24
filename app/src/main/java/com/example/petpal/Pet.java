@@ -18,16 +18,17 @@ public class Pet implements Serializable {
     private transient Bitmap foto; // Aquí asumimos que la foto es un recurso drawable
     // Constructor, getters y setters
 
-    public JSONObject toJSON() throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("campo1", this.nombre);
-        jsonObject.put("campo2", this.raza);
-        jsonObject.put("campo2", this.peso);
-        jsonObject.put("campo2", this.fechaNacimiento);
-        // añadir los demás campos aquí
 
-        return jsonObject;
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "nombre='" + nombre + '\'' +
+                ", raza='" + raza + '\'' +
+                ", peso='" + peso + '\'' +
+                ", fechaNacimiento='" + fechaNacimiento + '\'' +
+                '}';
     }
+
     public Pet(String nombre, String raza, String peso, String fechaNacimiento) {
         this.nombre = nombre;
         this.raza = raza;
