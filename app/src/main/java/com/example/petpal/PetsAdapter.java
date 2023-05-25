@@ -1,18 +1,28 @@
 package com.example.petpal;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder> {
+
+    // Dentro de la clase PetsAdapter
+    private DatabaseReference databaseRef;
 
     private List<Pet> animales;
     private Context contexto;
@@ -21,6 +31,9 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
     public PetsAdapter(List<Pet> animales, Context contexto) {
         this.animales = animales;
         this.contexto = contexto;
+
+        // Obtener referencia a la base de datos
+        databaseRef = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -75,8 +88,49 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
                     contexto.startActivity(intent);
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    showDeleteDialog(getAdapterPosition());
+                    return true;
+                }
+            });
+
+        }
+
+
+        private void showDeleteDialog(final int position) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
+            builder.setTitle("Eliminar")
+                    .setMessage("¿Deseas eliminar este animal?")
+                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (position >= 0 && position < animales.size()) {
+                                Pet pet = animales.get(position);
+
+                                // Eliminar la mascota de la lista
+                                animales.remove(position);
+                                notifyDataSetChanged();
+
+                                // Obtener el ID de la mascota
+                                String petId = pet.getNombre();
+
+                                // Eliminar el nodo correspondiente de la base de datos
+                                DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("mascotas").child(petId);
+                                databaseRef.removeValue();
+
+
+                                Toast.makeText(contexto, "Has eliminado a "+ petId+ " correctamente.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         }
     }
+
 
     public void addAnimal(Pet pet) {
         animales.add(pet);

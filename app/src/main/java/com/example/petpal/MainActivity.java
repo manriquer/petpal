@@ -31,7 +31,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAgregarAnimalListener {
 
 
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+
     RecyclerView recyclerViewAnimales;
     List<Pet> animales;
     FloatingActionButton fab;
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
             }
         });
 
-
+        
 
 
         // Write a message to the database
