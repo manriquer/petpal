@@ -82,7 +82,7 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
             raza.setText(pet.getRaza());
             peso.setText(pet.getPeso());
             fechaNacimiento.setText(pet.getFechaNacimiento());
-            imagen.setImageBitmap(pet.getFoto());
+            imagen.setImageBitmap(pet.getImagenBitmap());
 
             // Maneja los eventos de clic aquí si es necesario
             itemView.setOnClickListener(new View.OnClickListener() {

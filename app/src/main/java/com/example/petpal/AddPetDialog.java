@@ -30,6 +30,11 @@
     import com.google.firebase.database.FirebaseDatabase;
     import java.io.IOException;
 
+    import android.graphics.Bitmap;
+    import android.graphics.BitmapFactory;
+    import android.util.Base64;
+    import java.io.ByteArrayOutputStream;
+
     public class AddPetDialog extends DialogFragment {
 
         TextView nameTextView, breedTextView, weightTextView, dateTextView,animalTextView;
@@ -90,18 +95,28 @@
                     if (nombre.isEmpty() || raza.isEmpty() || peso.isEmpty() || fechaNacimiento.isEmpty()) {
                         Toast.makeText(getActivity(), R.string.complete_campos, Toast.LENGTH_SHORT).show();
                     } else {
+                        // Convierte la imagen a un arreglo de bytes
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        imagen.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        byte[] imageBytes = baos.toByteArray();
+
+                        // Codifica los bytes en Base64
+                        String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
                         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
                         DatabaseReference mMessagesRef = mRootRef.child("mascotas");
 
-                        Pet pet = new Pet(animal,nombre, raza, peso, fechaNacimiento);
+                        Pet pet = new Pet(animal,nombre, raza, peso, fechaNacimiento,base64Image);
+                        pet.setImagenBase64(base64Image);
 
-                       /* String key = mMessagesRef.push().getKey();*/
+                        /* String key = mMessagesRef.push().getKey();*/
                         mMessagesRef.child(nombre).setValue(pet);
 
                         dismiss(); // Cerrar el diálogo
                     }
                 }
             });
+
 
 
 

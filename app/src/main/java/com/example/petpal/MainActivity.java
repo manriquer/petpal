@@ -27,6 +27,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
 public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAgregarAnimalListener {
 
@@ -105,8 +108,17 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
                     String peso = childSnapshot.child("peso").getValue(String.class);
                     String fechaNacimiento = childSnapshot.child("fechaNacimiento").getValue(String.class);
 
+
+                    String imagenBase64 = childSnapshot.child("imagenBase64").getValue(String.class);
+
+                    byte[] imageBytes = Base64.decode(imagenBase64, Base64.DEFAULT);
+
+
+                    Bitmap imagenBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+
                     // Crea un nuevo objeto Pet con los datos obtenidos
-                    Pet mascota = new Pet(animal,nombre, raza, peso, fechaNacimiento);
+                    Pet mascota = new Pet(animal,nombre, raza, peso, fechaNacimiento,imagenBitmap);
 
                     // Agrega la mascota a la lista de animales
                     animales.add(mascota);
@@ -148,11 +160,15 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
 
 
-    public void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
+    public void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, String imagen) {
         // Agrega los datos ingresados
-        Pet nuevoPet = new Pet(animal, nombre, raza, peso,fechaNacimiento);
+        Pet nuevoPet = new Pet(animal, nombre, raza, peso,fechaNacimiento, imagen);
         ((PetsAdapter)recyclerViewAnimales.getAdapter()).addAnimal(nuevoPet);
     }
 
 
+    @Override
+    public void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
+
+    }
 }

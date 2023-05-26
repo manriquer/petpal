@@ -14,11 +14,34 @@ public class Pet implements Serializable {
     private String raza;
     private String peso;
 
-
-
     private String fechaNacimiento;
-    private transient Bitmap foto; // Aquí asumimos que la foto es un recurso drawable
+        // ...
+        private String imagenBase64;
+
+    private transient Bitmap imagenBitmap; // Aquí asumimos que la foto es un recurso drawable
     // Constructor, getters y setters
+
+
+    public void setImagenBase64(String imagenBase64) {
+            this.imagenBase64 = imagenBase64;
+        }
+
+        // Resto de métodos y atributos de la clase Pet
+
+
+    public String getImagenBase64() {
+        return imagenBase64;
+    }
+
+    public Bitmap getImagenBitmap() {
+        return imagenBitmap;
+    }
+
+    public void setImagenBitmap(Bitmap imagenBitmap) {
+        this.imagenBitmap = imagenBitmap;
+    }
+
+
 
 
     @Override
@@ -32,20 +55,22 @@ public class Pet implements Serializable {
                 '}';
     }
 
-    public Pet(String animal, String nombre, String raza, String peso, String fechaNacimiento) {
+    public Pet(String animal, String nombre, String raza, String peso, String fechaNacimiento,String imagenBase64) {
         this.animal = animal;
         this.nombre = nombre;
         this.raza = raza;
         this.peso = peso;
         this.fechaNacimiento = fechaNacimiento;
+        this.imagenBase64 = imagenBase64;
     }
 
-    public Pet(String nombre, String raza, String peso, String fechaNacimiento, Bitmap foto) {
+    public Pet(String animal, String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagenBitmap) {
+        this.animal = animal;
         this.nombre = nombre;
         this.raza = raza;
         this.peso = peso;
         this.fechaNacimiento = fechaNacimiento;
-        this.foto = foto;
+        this.imagenBitmap = imagenBitmap;
     }
 
     public String getAnimal() {
@@ -88,13 +113,9 @@ public class Pet implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Bitmap getFoto() {
-        return foto;
-    }
 
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
-    }
+
+
 
     public Pet() {
     }
