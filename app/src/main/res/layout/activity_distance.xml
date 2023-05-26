@@ -10,7 +10,7 @@
         android:id="@+id/distance_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 m"
+        android:text="@string/distance_text_view"
         app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public class Pet implements Serializable {
+
+    private String animal;
     private String nombre;
     private String raza;
     private String peso;
@@ -22,14 +24,16 @@ public class Pet implements Serializable {
     @Override
     public String toString() {
         return "Pet{" +
-                "nombre='" + nombre + '\'' +
+                "animal='" + animal + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", raza='" + raza + '\'' +
                 ", peso='" + peso + '\'' +
                 ", fechaNacimiento='" + fechaNacimiento + '\'' +
                 '}';
     }
 
-    public Pet(String nombre, String raza, String peso, String fechaNacimiento) {
+    public Pet(String animal, String nombre, String raza, String peso, String fechaNacimiento) {
+        this.animal = animal;
         this.nombre = nombre;
         this.raza = raza;
         this.peso = peso;
@@ -42,6 +46,14 @@ public class Pet implements Serializable {
         this.peso = peso;
         this.fechaNacimiento = fechaNacimiento;
         this.foto = foto;
+    }
+
+    public String getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(String animal) {
+        this.animal = animal;
     }
 
     public String getPeso() {

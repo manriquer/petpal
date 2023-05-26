@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -61,12 +60,15 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
         // Declaraciones de vistas aquí...
         TextView nombre;
         TextView raza;
+        TextView animal;
         TextView peso;
         TextView fechaNacimiento;
         ImageView imagen;
 
         public PetViewHolder(View itemView) {
             super(itemView);
+
+            animal = itemView.findViewById(R.id.animal);
             nombre = itemView.findViewById(R.id.nombre_animal);
             raza = itemView.findViewById(R.id.raza_animal);
             peso = itemView.findViewById(R.id.peso_animal);
@@ -75,6 +77,7 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
         }
 
         public void bind(Pet pet) {
+            animal.setText(pet.getAnimal());
             nombre.setText(pet.getNombre());
             raza.setText(pet.getRaza());
             peso.setText(pet.getPeso());
@@ -94,19 +97,25 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    showDeleteDialog(getAdapterPosition());
+                    showDeleteDialog( getAdapterPosition());
                     return true;
                 }
             });
+
 
         }
 
 
         private void showDeleteDialog(final int position) {
             AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
-            builder.setTitle("Eliminar")
-                    .setMessage("¿Deseas eliminar este animal?")
-                    .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            String title = contexto.getString(R.string.dialog_title_delete);
+            String message = contexto.getString(R.string.dialog_message_delete);
+            String positiveButton = contexto.getString(R.string.dialog_button_yes);
+            String negativeButton = contexto.getString(R.string.dialog_button_no);
+
+            builder.setTitle(title)
+                    .setMessage(message)
+                    .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (position >= 0 && position < animales.size()) {
@@ -119,18 +128,21 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
                                 // Obtener el ID de la mascota
                                 String petId = pet.getNombre();
 
-                                // Eliminar el nodo correspondiente de la base de datos
-                                DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("mascotas").child(petId);
-                                databaseRef.removeValue();
+                                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+                                dbRef.child("mascotas").child(pet.getNombre().toString()).removeValue();
 
+                                String deleteToastMessage = contexto.getString(R.string.toast_delete_success, petId);
+                                Toast.makeText(contexto, deleteToastMessage, Toast.LENGTH_SHORT).show();
 
-                                Toast.makeText(contexto, "Has eliminado a "+ petId+ " correctamente.", Toast.LENGTH_SHORT).show();
+                                animales.clear();
                             }
                         }
                     })
-                    .setNegativeButton("No", null)
+                    .setNegativeButton(negativeButton, null)
                     .show();
         }
+
+
     }
 
 
@@ -141,68 +153,3 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
 }
 
 
-//import android.content.Context;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.BaseAdapter;
-//import android.widget.ImageView;
-//import android.widget.TextView;
-//
-//import java.util.List;
-//
-//public class PetsAdapter extends BaseAdapter {
-//    private List<Pet> animales;
-//    private Context contexto;
-//
-//    public PetsAdapter(List<Pet> animales, Context contexto) {
-//        this.animales = animales;
-//        this.contexto = contexto;
-//    }
-//
-//    @Override
-//    public int getCount() {
-//        return animales.size();
-//    }
-//
-//    @Override
-//    public Object getItem(int position) {
-//        return animales.get(position);
-//    }
-//
-//    @Override
-//    public long getItemId(int position) {
-//        return position;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        if (convertView == null) {
-//            LayoutInflater inflater = LayoutInflater.from(contexto);
-//            convertView = inflater.inflate(R.layout.pet_row, null);
-//        }
-//
-//
-//        TextView nombre = convertView.findViewById(R.id.nombre_animal);
-//        TextView raza = convertView.findViewById(R.id.raza_animal);
-//        TextView peso = convertView.findViewById(R.id.peso_animal);
-//        TextView fechaNacimiento = convertView.findViewById(R.id.fecha_nacimiento_animal);
-//        ImageView imagen = convertView.findViewById(R.id.imagen_animal);
-//        Pet pet = animales.get(position);
-//
-//
-//
-//
-//        nombre.setText(pet.getNombre());
-//        raza.setText(pet.getRaza());
-//        peso.setText(pet.getPeso());
-//        fechaNacimiento.setText(pet.getFechaNacimiento());
-//        imagen.setImageBitmap(pet.getFoto());
-//        return convertView;
-//    }
-//
-//    public void addAnimal(Pet pet) {
-//        animales.add(pet);
-//        notifyDataSetChanged();
-//    }
-//}

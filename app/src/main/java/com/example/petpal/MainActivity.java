@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
                 AddPetDialog dialogo = new AddPetDialog();
                 dialogo.show(getSupportFragmentManager(), "MiDialogoPersonalizado");
                 animales.clear();
-
+                
             }
         });
 
@@ -99,13 +99,14 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    String animal = childSnapshot.child("animal").getValue(String.class);
                     String nombre = childSnapshot.child("nombre").getValue(String.class);
                     String raza = childSnapshot.child("raza").getValue(String.class);
                     String peso = childSnapshot.child("peso").getValue(String.class);
                     String fechaNacimiento = childSnapshot.child("fechaNacimiento").getValue(String.class);
 
                     // Crea un nuevo objeto Pet con los datos obtenidos
-                    Pet mascota = new Pet(nombre, raza, peso, fechaNacimiento, null);
+                    Pet mascota = new Pet(animal,nombre, raza, peso, fechaNacimiento);
 
                     // Agrega la mascota a la lista de animales
                     animales.add(mascota);
@@ -147,9 +148,9 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
 
 
-    public void onAgregarAnimal(String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
+    public void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
         // Agrega los datos ingresados
-        Pet nuevoPet = new Pet(nombre, raza, peso,fechaNacimiento, imagen);
+        Pet nuevoPet = new Pet(animal, nombre, raza, peso,fechaNacimiento);
         ((PetsAdapter)recyclerViewAnimales.getAdapter()).addAnimal(nuevoPet);
     }
 

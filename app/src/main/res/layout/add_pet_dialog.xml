@@ -22,13 +22,34 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/Animal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/animal" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="164dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/nombres"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <EditText
                     android:id="@+id/eraza"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Introduzca raza"
+                    android:hint="@string/introducir_raza"
                     android:inputType="text" />
 
                 <TextView
@@ -36,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Raza" />
+                    android:text="@string/raza" />
 
             </LinearLayout>
 
@@ -51,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Introduzca Peso"
+                    android:hint="@string/introducir_peso"
                     android:inputType="text" />
 
                 <TextView
@@ -59,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Peso" />
+                    android:text="@string/peso" />
 
             </LinearLayout>
 
@@ -74,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Introduzca año"
+                    android:hint="@string/introducir_anyo"
                     android:inputType="date" />
 
                 <TextView
@@ -82,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Año" />
+                    android:text="@string/anyo" />
 
             </LinearLayout>
 
@@ -97,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="Introduzca Nombre"
+                    android:hint="@string/introducir_nombre"
                     android:inputType="text" />
 
                 <TextView
@@ -105,14 +126,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Nombre:" />
+                    android:text="@string/nombre" />
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/anyadirimagen"
-
                 android:layout_width="202dp"
-
                 android:layout_height="171dp"
                 android:scaleType="centerCrop"
                 tools:srcCompat="@drawable/ic_launcher_background" />
@@ -127,7 +146,7 @@
                     android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Foto" />
+                    android:text="@string/foto" />
 
                 <Button
                     android:id="@+id/anyadir"
@@ -135,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="añadir" />
+                    android:text="@string/anadir" />
             </LinearLayout>
 
         </LinearLayout>

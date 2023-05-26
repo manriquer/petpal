@@ -10,4 +10,66 @@
     <string name="more">more</string>
     <string name="fab_content_desc">Añadir mascota</string>
     <string name="petpal">Petpal</string>
+    <string name="distance_text_view">0 m</string>
+
+    <string name="cerrarsesion">Cerrar sesión</string>
+    <string name="infosignin">Información de inicio de sesión</string>
+    <string name="siguiente">Siguiente</string>
+
+    <string name="info_text">TextView</string>
+    <string name="dar_paseo">Dar paseo</string>
+    <string name="anadir_recordatorio">Añadir recordatorio</string>
+
+
+
+
+    <string name="animal">Animal</string>
+    <string name="introducir_raza">Introduzca raza</string>
+    <string name="raza">Raza</string>
+    <string name="introducir_peso">Introduzca Peso</string>
+    <string name="peso">Peso</string>
+    <string name="introducir_anyo">Introduzca año</string>
+    <string name="anyo">Año</string>
+    <string name="introducir_nombre">Introduzca Nombre</string>
+    <string name="nombre">Nombre:</string>
+    <string name="foto">Foto</string>
+    <string name="anadir">añadir</string>
+    <!-- Strings -->
+
+    <string name="raza_animal">Raza</string>
+    <string name="peso_animal">Peso</string>
+    <string name="fecha_nacimiento_animal">Fecha nacimiento</string>
+    <string-array name="nombres">
+        <item>Perro</item>
+        <item>Gato</item>
+        <item>Pez</item>
+        <item>Conejo</item>
+        <item>Hamster</item>
+        <item>Pájaro</item>
+        <item>Tortuga</item>
+        <item>Cobaya</item>
+        <item>Serpiente</item>
+        <item>Hurón</item>
+        <item>Gecko</item>
+        <item>Otro</item>
+
+    </string-array>
+
+
+
+    <!--traducir-->
+    <string name="complete_campos">Por favor, completa todos los campos</string>
+    <string name="option_take_photo">Tomar foto</string>
+    <string name="option_choose_gallery">Elegir de la galería</string>
+    <string name="option_cancel">Cancelar</string>
+    <string name="dialog_title">Elige una opción</string>
+    <string name="dialog_title_delete">Eliminar</string>
+    <string name="dialog_message_delete">¿Deseas eliminar este animal?</string>
+    <string name="dialog_button_yes">Sí</string>
+    <string name="dialog_button_no">No</string>
+    <string name="toast_delete_success">Has eliminado a %1$s correctamente.</string>
+
+
+
+
 </resources>

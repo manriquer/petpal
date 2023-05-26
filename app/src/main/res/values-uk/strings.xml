@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Pet Pal</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="page_title">PETPAL</string>
+    <string name="edit">редагувати</string>
+    <string name="content_description_search">пошук</string>
+    <string name="favorite">улюблене</string>
+    <string name="content_description_favorite">улюблене</string>
+    <string name="content_description_more">більше</string>
+    <string name="more">більше</string>
+    <string name="fab_content_desc">Додати тварину</string>
+    <string name="petpal">Petpal</string>
+    <string name="distance_text_view">0 м</string>
+
+    <string name="cerrarsesion">Вийти з облікового запису</string>
+    <string name="infosignin">Інформація про вхід у систему</string>
+    <string name="siguiente">Далі</string>
+
+    <string name="info_text">TextView</string>
+    <string name="dar_paseo">Прогулянка</string>
+    <string name="anadir_recordatorio">Додати нагадування</string>
+
+    <string name="animal">Тварина</string>
+    <string name="introducir_raza">Введіть породу</string>
+    <string name="raza">Порода</string>
+    <string name="introducir_peso">Введіть вагу</string>
+    <string name="peso">Вага</string>
+    <string name="introducir_anyo">Введіть рік</string>
+    <string name="anyo">Рік</string>
+    <string name="introducir_nombre">Введіть ім\'я</string>
+    <string name="nombre">Ім\'я:</string>
+    <string name="foto">Фото</string>
+    <string name="anadir">додати</string>
+    <!-- Strings -->
+
+    <string name="raza_animal">Порода</string>
+    <string name="peso_animal">Вага</string>
+    <string name="fecha_nacimiento_animal">Дата народження</string>
+    <string-array name="nombres">
+        <item>Собака</item>
+        <item>Кіт</item>
+        <item>Риба</item>
+        <item>Кролик</item>
+        <item>Хом\'як</item>
+        <item>Птах</item>
+        <item>Черепаха</item>
+        <item>Морська свинка</item>
+        <item>Змія</item>
+        <item>Хорек</item>
+        <item>Гекон</item>
+        <item>Інше</item>
+    </string-array>
+
+    <string name="complete_campos">Будь ласка, заповніть всі поля</string>
+    <string name="option_take_photo">Зробити фото</string>
+    <string name="option_choose_gallery">Вибрати з галереї</string>
+    <string name="option_cancel">Скасувати</string>
+    <string name="dialog_title">Виберіть опцію</string>
+    <string name="dialog_title_delete">Видалити</string>
+    <string name="dialog_message_delete">Бажаєте видалити це тварину?</string>
+    <string name="dialog_button_yes">Так</string>
+    <string name="dialog_button_no">Ні</string>
+    <string name="toast_delete_success">Ви успішно видалили %1$s.</string>
+
+</resources>

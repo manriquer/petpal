@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Pet Pal</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="page_title">PETPAL</string>
+    <string name="edit">modifica</string>
+    <string name="content_description_search">cerca</string>
+    <string name="favorite">preferito</string>
+    <string name="content_description_favorite">preferito</string>
+    <string name="content_description_more">altro</string>
+    <string name="more">altro</string>
+    <string name="fab_content_desc">Aggiungi animale domestico</string>
+    <string name="petpal">Petpal</string>
+    <string name="distance_text_view">0 m</string>
+
+    <string name="cerrarsesion">Esci</string>
+    <string name="infosignin">Informazioni accesso</string>
+    <string name="siguiente">Avanti</string>
+
+    <string name="info_text">TextView</string>
+    <string name="dar_paseo">Porta a passeggio</string>
+    <string name="anadir_recordatorio">Aggiungi promemoria</string>
+
+    <string name="animal">Animale</string>
+    <string name="introducir_raza">Inserisci razza</string>
+    <string name="raza">Razza</string>
+    <string name="introducir_peso">Inserisci peso</string>
+    <string name="peso">Peso</string>
+    <string name="introducir_anyo">Inserisci anno</string>
+    <string name="anyo">Anno</string>
+    <string name="introducir_nombre">Inserisci nome</string>
+    <string name="nombre">Nome:</string>
+    <string name="foto">Foto</string>
+    <string name="anadir">aggiungi</string>
+    <!-- Strings -->
+
+    <string name="raza_animal">Razza</string>
+    <string name="peso_animal">Peso</string>
+    <string name="fecha_nacimiento_animal">Data di nascita</string>
+    <string-array name="nombres">
+        <item>Cane</item>
+        <item>Gatto</item>
+        <item>Pesce</item>
+        <item>Coniglio</item>
+        <item>Criceto</item>
+        <item>Uccello</item>
+        <item>Tartaruga</item>
+        <item>Cavia</item>
+        <item>Serpente</item>
+        <item>Faina</item>
+        <item>Gecko</item>
+        <item>Altro</item>
+    </string-array>
+
+    <string name="complete_campos">Per favore, completa tutti i campi</string>
+    <string name="option_take_photo">Scatta una foto</string>
+    <string name="option_choose_gallery">Scegli dalla galleria</string>
+    <string name="option_cancel">Annulla</string>
+    <string name="dialog_title">Scegli un\'opzione</string>
+    <string name="dialog_title_delete">Elimina</string>
+    <string name="dialog_message_delete">Vuoi eliminare questo animale?</string>
+    <string name="dialog_button_yes">Sì</string>
+    <string name="dialog_button_no">No</string>
+    <string name="toast_delete_success">Hai eliminato %1$s correttamente.</string>
+
+</resources>
