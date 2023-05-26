@@ -27,6 +27,8 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
     private List<Pet> animales;
     private Context contexto;
 
+
+
     // Constructor y métodos existentes aquí...
     public PetsAdapter(List<Pet> animales, Context contexto) {
         this.animales = animales;
@@ -133,8 +135,8 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
 
 
     public void addAnimal(Pet pet) {
-        animales.add(pet);
-        notifyDataSetChanged();
+       /* animales.add(pet);
+        notifyDataSetChanged();*/
     }
 }
 

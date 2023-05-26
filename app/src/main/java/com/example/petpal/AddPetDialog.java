@@ -18,7 +18,12 @@
     import android.widget.ImageView;
     import android.widget.TextView;
     import android.widget.Toast;
+
+    import androidx.annotation.NonNull;
     import androidx.fragment.app.DialogFragment;
+
+    import com.google.android.gms.tasks.OnCompleteListener;
+    import com.google.android.gms.tasks.Task;
     import com.google.firebase.database.DatabaseReference;
     import com.google.firebase.database.FirebaseDatabase;
     import java.io.IOException;
@@ -74,31 +79,21 @@
 
                     if (nombre.isEmpty() || raza.isEmpty() || peso.isEmpty() || fechaNacimiento.isEmpty()) {
                         Toast.makeText(getActivity(), "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
-                    }  else {
-                        // Llama al método onAgregarAnimal() de la interfaz
-                        /*OnAgregarAnimalListener listener = (OnAgregarAnimalListener) getActivity();
-                        listener.onAgregarAnimal(nombre, raza, peso, fechaNacimiento, imagen);*/
-
-
+                    } else {
                         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-                          DatabaseReference mMessagesRef = mRootRef.child("mascotas");
+                        DatabaseReference mMessagesRef = mRootRef.child("mascotas");
 
                         Pet pet = new Pet(nombre, raza, peso, fechaNacimiento);
 
-                        mMessagesRef.push().setValue(pet);
-
-
-
-
-
-
-
-
+                        String key = mMessagesRef.push().getKey();
+                        mMessagesRef.child(key).setValue(pet);
 
                         dismiss(); // Cerrar el diálogo
                     }
                 }
             });
+
+
 
             return vista;
         }

@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
                 AddPetDialog dialogo = new AddPetDialog();
                 dialogo.show(getSupportFragmentManager(), "MiDialogoPersonalizado");
+                animales.clear();
+
             }
         });
 
@@ -142,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         recyclerViewAnimales.setLayoutManager(recyclerLayoutManager);
         recyclerViewAnimales.setAdapter(adaptador);
     }
+
+
 
     public void onAgregarAnimal(String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
         // Agrega los datos ingresados
