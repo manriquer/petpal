@@ -82,5 +82,12 @@
             android:layout_height="wrap_content"
             android:onClick="reco"
             android:text="@string/anadir_recordatorio" />
+
+        <Button
+            android:id="@+id/reminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="reminder"
+            android:text="@string/anadir_recordatorio" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

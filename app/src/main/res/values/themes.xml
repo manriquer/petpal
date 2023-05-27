@@ -5,6 +5,15 @@
         <item name="windowSplashScreenAnimationDuration">200</item>
         <item name="postSplashScreenTheme">@style/Theme.PetpalTheme</item>
     </style>
+    <style name="Theme.FullScreenDialog" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+    <style name="Theme.Slide" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
     <style name="Theme.PetpalTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>

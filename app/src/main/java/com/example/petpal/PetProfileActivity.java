@@ -19,6 +19,8 @@ public class PetProfileActivity extends AppCompatActivity {
     TextView info;
     Button darpaseo, anyadirreco;
 
+    Button reminder;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_profile);
@@ -37,6 +39,8 @@ public class PetProfileActivity extends AppCompatActivity {
         info = findViewById(R.id.info);
         darpaseo = findViewById(R.id.darpaseo);
         anyadirreco = findViewById(R.id.recordatorio);
+
+        reminder = findViewById(R.id.reminder);
 //        darpaseo.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -55,6 +59,11 @@ public class PetProfileActivity extends AppCompatActivity {
     public void reco(View view) {
         Intent intent = new Intent(this, DistanceActivity.class);
         startActivity(intent);
+    }
+
+    public void reminder(View view) {
+        ExampleDialog dialogo = new ExampleDialog();
+        dialogo.show(getSupportFragmentManager(), "Reminder");
     }
 
     private void mostrarConfirmacion() {
