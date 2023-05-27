@@ -1,22 +1,13 @@
 package com.example.petpal;
 
-import static android.content.ContentValues.TAG;
-
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.WindowCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -24,16 +15,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Base64;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAgregarAnimalListener {
-
-
 
     RecyclerView recyclerViewAnimales;
     List<Pet> animales;
@@ -45,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // TOP APP BAR:
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
@@ -71,21 +57,41 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
-
                 AddPetDialog dialogo = new AddPetDialog();
-                dialogo.show(getSupportFragmentManager(), "MiDialogoPersonalizado");
+                dialogo.show(getSupportFragmentManager(), "Add pet dialog");
+
+//                PetDialog myDialog = new PetDialog(MainActivity.this);
+//                myDialog.show();
+
+
+//                new MaterialAlertDialogBuilder(MainActivity.this)
+//                        .setTitle("Titulo")
+//                        .setMessage("Mensaje")
+//                        .setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // Respond to neutral button press
+//                            }
+//                        })
+//                        .setNegativeButton("Declinar", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // Respond to negative button press
+//                            }
+//                        })
+//                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                // Respond to positive button press
+//                            }
+//                        })
+//                        .show();
+
                 animales.clear();
-                
             }
         });
 
         // LISTA:
-
-
         animales = new ArrayList<>();
         /*Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back_24dp);*/
         /*Pet gato= new Pet("Stanis","salvaje","3kg","15/06/2003", bitmap);
@@ -94,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
         Pet perro = new Pet("faeba","sfinx","100kg","23/03/2000A.C", bitmap);
         animales.add(perro);*/
-
 
 
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -118,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
 
                     // Crea un nuevo objeto Pet con los datos obtenidos
-                    Pet mascota = new Pet(animal,nombre, raza, peso, fechaNacimiento,imagenBitmap);
+                    Pet mascota = new Pet(animal, nombre, raza, peso, fechaNacimiento, imagenBitmap);
 
                     // Agrega la mascota a la lista de animales
                     animales.add(mascota);
@@ -134,12 +139,10 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
             }
         });
 
-        
-
 
         // Write a message to the database
 
-      /*  DatabaseReference mMessagesRef = mRootRef.child("mascotas");*/
+        /*  DatabaseReference mMessagesRef = mRootRef.child("mascotas");*/
 
 
 
@@ -159,11 +162,10 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     }
 
 
-
     public void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, String imagen) {
         // Agrega los datos ingresados
-        Pet nuevoPet = new Pet(animal, nombre, raza, peso,fechaNacimiento, imagen);
-        ((PetsAdapter)recyclerViewAnimales.getAdapter()).addAnimal(nuevoPet);
+        Pet nuevoPet = new Pet(animal, nombre, raza, peso, fechaNacimiento, imagen);
+        ((PetsAdapter) recyclerViewAnimales.getAdapter()).addAnimal(nuevoPet);
     }
 
 
