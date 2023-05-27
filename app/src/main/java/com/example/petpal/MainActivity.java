@@ -1,15 +1,20 @@
 package com.example.petpal;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,11 +32,22 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     FloatingActionButton fab;
     PetsAdapter adaptador;
     LinearLayoutManager recyclerLayoutManager;
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // FIREBASE LOGOUT:
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        if (user == null) {
+            Intent intent = new Intent(getApplicationContext(), LoginActivity2.class);
+            startActivity(intent);
+            finish();
+        }
 
         // TOP APP BAR:
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
@@ -41,16 +57,20 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 //                onBackPressed();
 //            }
 //        });
-//        topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                if(item.getItemId()== R.id.more) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//            }
-//        });
+        topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId()== R.id.logout) {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity2.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
 
         // FAB BOTTON:
         fab = findViewById(R.id.floating_action_button);

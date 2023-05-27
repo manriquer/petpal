@@ -21,8 +21,6 @@
     <string name="anadir_recordatorio">Añadir recordatorio</string>
 
 
-
-
     <string name="animal">Animal</string>
     <string name="introducir_raza">Introduzca raza</string>
     <string name="raza">Raza</string>
@@ -39,6 +37,28 @@
     <string name="raza_animal">Raza</string>
     <string name="peso_animal">Peso</string>
     <string name="fecha_nacimiento_animal">Fecha nacimiento</string>
+    <string name="complete_campos">Por favor, completa todos los campos</string>
+
+
+    <!--traducir-->
+    <string name="option_take_photo">Tomar foto</string>
+    <string name="option_choose_gallery">Elegir de la galería</string>
+    <string name="option_cancel">Cancelar</string>
+    <string name="dialog_title">Elige una opción</string>
+    <string name="dialog_title_delete">Eliminar</string>
+    <string name="dialog_message_delete">¿Deseas eliminar este animal?</string>
+    <string name="dialog_button_yes">Sí</string>
+    <string name="dialog_button_no">No</string>
+    <string name="toast_delete_success">Has eliminado a %1$s correctamente.</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="register">Register</string>
+    <string name="pulsa_para_login">Pulsa para Login</string>
+    <string name="pulsa_para_registrarte">Pulsa para Registrarte</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="logout_desc">Cerrar sesión</string>
     <string-array name="nombres">
         <item>Perro</item>
         <item>Gato</item>
@@ -54,22 +74,6 @@
         <item>Otro</item>
 
     </string-array>
-
-
-
-    <!--traducir-->
-    <string name="complete_campos">Por favor, completa todos los campos</string>
-    <string name="option_take_photo">Tomar foto</string>
-    <string name="option_choose_gallery">Elegir de la galería</string>
-    <string name="option_cancel">Cancelar</string>
-    <string name="dialog_title">Elige una opción</string>
-    <string name="dialog_title_delete">Eliminar</string>
-    <string name="dialog_message_delete">¿Deseas eliminar este animal?</string>
-    <string name="dialog_button_yes">Sí</string>
-    <string name="dialog_button_no">No</string>
-    <string name="toast_delete_success">Has eliminado a %1$s correctamente.</string>
-
-
 
 
 </resources>

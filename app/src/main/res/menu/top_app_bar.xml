@@ -1,8 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/more"
-        android:title="@string/more"
-        android:contentDescription="@string/content_description_more"
+        android:id="@+id/logout"
+        android:title="@string/logout"
+        android:contentDescription="@string/logout_desc"
         app:showAsAction="never" />
 </menu>
