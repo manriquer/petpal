@@ -1,24 +1,44 @@
 package com.example.petpal;
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import android.widget.ListView;
+import android.view.View;
+import android.widget.TextView;
+import android.text.format.DateFormat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class PetProfileActivity extends AppCompatActivity {
 
+    private FirebaseListAdapter<ChatMessage> adapter;
     ImageView foto;
     TextView info;
     Button darpaseo, anyadirreco;
-
+    Button chat;
     Button reminder;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +47,12 @@ public class PetProfileActivity extends AppCompatActivity {
 
         // TOP APP BAR:
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
-        Pet pet = (Pet) getIntent().getSerializableExtra("animal");
+
+
+
+
+
+
         topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,8 +64,50 @@ public class PetProfileActivity extends AppCompatActivity {
         info = findViewById(R.id.info);
         darpaseo = findViewById(R.id.darpaseo);
         anyadirreco = findViewById(R.id.recordatorio);
-
+        chat = findViewById(R.id.chat);
         reminder = findViewById(R.id.reminder);
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PetProfileActivity.this, ChatActivity.class);
+                startActivity(intent);
+                // Load chat room contents 
+
+            }
+
+
+        });
+
+        // Obtén el objeto Pet del Intent
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("animal")) {
+            Pet pet = (Pet) intent.getSerializableExtra("animal");
+
+            // Verifica si se envió el objeto Pet y si no se envió una imagen
+            if (pet != null && pet.getImagenBitmap() == null) {
+                // No se envió una imagen, muestra una imagen de reemplazo o realiza otra acción
+                foto.setImageResource(R.drawable.icono); // Imagen de reemplazo
+            } else {
+                // Se envió una imagen
+                Bitmap imagenBitmap = pet.getImagenBitmap();
+                foto.setImageBitmap(imagenBitmap);
+            }
+
+            // Resto del código para mostrar otros datos de Pet en la actividad
+            // ...
+        }
+    }
+
+
+
+
+
+// ...
+
+
+
+
 //        darpaseo.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -48,7 +115,7 @@ public class PetProfileActivity extends AppCompatActivity {
 //            }
 //        });
 
-    }
+
 
     public void paseo(View view) {
         Intent intent = new Intent(this, MapsActivity.class);

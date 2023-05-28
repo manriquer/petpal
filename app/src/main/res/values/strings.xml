@@ -59,6 +59,8 @@
     <string name="pulsa_para_registrarte">Pulsa para Registrarte</string>
     <string name="logout">Cerrar sesión</string>
     <string name="logout_desc">Cerrar sesión</string>
+    <string name="chat">Chat</string>
+
     <string-array name="nombres">
         <item>Perro</item>
         <item>Gato</item>

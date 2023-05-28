@@ -38,9 +38,10 @@
         android:layout_height="100dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="120dp"
-        android:src="@drawable/icono"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
         />
 
     <TextView
@@ -54,10 +55,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="407dp"
-        android:layout_height="317dp"
+        android:layout_width="372dp"
+        android:layout_height="424dp"
         android:layout_marginStart="4dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="60dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -89,5 +90,11 @@
             android:layout_height="wrap_content"
             android:onClick="reminder"
             android:text="@string/anadir_recordatorio" />
+
+        <Button
+            android:id="@+id/chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/chat" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
