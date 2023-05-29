@@ -2,6 +2,7 @@
 
     import static android.app.Activity.RESULT_OK;
     import android.app.AlertDialog;
+    import android.app.DatePickerDialog;
     import android.app.Dialog;
     import android.content.DialogInterface;
     import android.content.Intent;
@@ -19,8 +20,11 @@
     import android.view.Window;
     import android.widget.ArrayAdapter;
     import android.widget.Button;
+    import android.widget.DatePicker;
     import android.widget.EditText;
     import android.widget.ImageView;
+    import android.widget.LinearLayout;
+    import android.widget.NumberPicker;
     import android.widget.Spinner;
     import android.widget.TextView;
     import android.widget.Toast;
@@ -33,8 +37,10 @@
     import java.io.IOException;
     import android.util.Base64;
     import java.io.ByteArrayOutputStream;
+    import java.util.Calendar;
+    import java.util.Locale;
 
-    public class AddPetDialog extends DialogFragment {
+    public class AddPetDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
         private TextView nameTextView, breedTextView, weightTextView, dateTextView, animalTextView;
         private EditText nameEditText, breedEditText, weightEditText, dateEditText ;
@@ -44,6 +50,15 @@
         private static final int REQUEST_IMAGE_GALLERY = 2;
         private ImageView mImageView;
 
+
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            // Aquí obtendrás la fecha seleccionada
+            // Conviértela al formato deseado y establece el texto en dateEditText
+            String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
+            dateEditText.setText(selectedDate);
+        }
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.add_pet_dialog, container, false);
@@ -58,7 +73,31 @@
             weightEditText = view.findViewById(R.id.epeso);
             dateTextView = view.findViewById(R.id.anyo);
             dateEditText = view.findViewById(R.id.eanyo);
+            weightEditText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showWeightPickerDialog();
+                }
+            });
+
             // Agrega cualquier functionalism adicional aquí
+            dateEditText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Obtiene la fecha actual para establecerla como fecha predeterminada en el cuadro de diálogo
+                    Calendar calendar = Calendar.getInstance();
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                    // Crea una instancia de DatePickerDialog y configúrala
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), AddPetDialog.this, year, month, day);
+
+                    // Muestra el cuadro de diálogo de selección de fecha
+                    datePickerDialog.show();
+                }
+            });
+
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mImageView = view.findViewById(R.id.anyadirimagen);
 
@@ -87,6 +126,7 @@
                     String raza = breedEditText.getText().toString();
                     String peso = weightEditText.getText().toString();
                     String fechaNacimiento = dateEditText.getText().toString();
+
                     Bitmap imagen;
 
                     if (mImageView.getDrawable() == null) {
@@ -131,6 +171,39 @@
 
             return view;
         }
+        private void showWeightPickerDialog() {
+            final NumberPicker kgNumberPicker = new NumberPicker(getActivity());
+            kgNumberPicker.setMinValue(0);
+            kgNumberPicker.setMaxValue(10);
+
+            final NumberPicker gNumberPicker = new NumberPicker(getActivity());
+            gNumberPicker.setMinValue(0);
+            gNumberPicker.setMaxValue(9);
+            gNumberPicker.setDisplayedValues(new String[]{"0", "10", "20", "30", "40", "50", "60", "70", "80", "90"});
+
+            LinearLayout layout = new LinearLayout(getActivity());
+            layout.setOrientation(LinearLayout.HORIZONTAL);
+            layout.addView(kgNumberPicker);
+            layout.addView(gNumberPicker);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Seleccionar peso");
+            builder.setView(layout);
+            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    int selectedKg = kgNumberPicker.getValue();
+                    int selectedG = gNumberPicker.getValue() * 100;
+                    int selectedWeight = selectedKg + selectedG;
+                    weightEditText.setText(String.valueOf(selectedWeight));
+                }
+            });
+            builder.setNegativeButton("Cancelar", null);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -207,5 +280,18 @@
             void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen);
 
         }
+        public class DateDialog extends DialogFragment {
 
+            public Dialog onCreateDialog(Bundle savedInstanceState) {
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
+            }
+
+
+        }
     }
+
