@@ -62,4 +62,17 @@
     <string name="dialog_button_no">Ні</string>
     <string name="toast_delete_success">Ви успішно видалили %1$s.</string>
 
+    <string name="login">Увійти</string>
+    <string name="email">Електронна пошта</string>
+    <string name="password">Пароль</string>
+    <string name="btn_login">Увійти</string>
+    <string name="register">Зареєструватися</string>
+    <string name="pulsa_para_login">Натисніть, щоб увійти</string>
+    <string name="pulsa_para_registrarte">Натисніть, щоб зареєструватися</string>
+    <string name="logout">Вийти</string>
+    <string name="logout_desc">Вийти</string>
+    <string name="chat">Чат</string>
+    <string name="username">Ім\'я користувача</string>
+
+
 </resources>

@@ -121,9 +121,18 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         Pet perro = new Pet("faeba","sfinx","100kg","23/03/2000A.C", bitmap);
         animales.add(perro);*/
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            // El usuario no ha iniciado sesión, maneja este caso según tus necesidades
+            return;
+        }
+        // Obtén la referencia de la base de datos para el usuario actual
+        String userId = currentUser.getUid();
 
-        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        mRootRef.child("mascotas").addValueEventListener(new ValueEventListener() {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+        // Crea un nodo "mascotas" dentro del nodo del usuario actual
+        DatabaseReference mascotasRef = userRef.child("mascotas");
+        mascotasRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
@@ -182,11 +191,6 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     }
 
 
-    public void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, String imagen) {
-        // Agrega los datos ingresados
-        Pet nuevoPet = new Pet(animal, nombre, raza, peso, fechaNacimiento, imagen);
-        ((PetsAdapter) recyclerViewAnimales.getAdapter()).addAnimal(nuevoPet);
-    }
 
 
     @Override

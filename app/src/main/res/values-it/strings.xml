@@ -62,4 +62,17 @@
     <string name="dialog_button_no">No</string>
     <string name="toast_delete_success">Hai eliminato %1$s correttamente.</string>
 
+    <string name="login">Accedi</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="btn_login">Accedi</string>
+    <string name="register">Registrati</string>
+    <string name="pulsa_para_login">Premi per accedere</string>
+    <string name="pulsa_para_registrarte">Premi per registrarti</string>
+    <string name="logout">Logout</string>
+    <string name="logout_desc">Logout</string>
+    <string name="chat">Chat</string>
+    <string name="username">Nome utente</string>
+
+
 </resources>

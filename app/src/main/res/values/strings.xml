@@ -60,7 +60,7 @@
     <string name="logout">Cerrar sesión</string>
     <string name="logout_desc">Cerrar sesión</string>
     <string name="chat">Chat</string>
-
+    <string name="username">Username</string>
     <string-array name="nombres">
         <item>Perro</item>
         <item>Gato</item>
