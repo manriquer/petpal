@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -125,11 +127,21 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
                                 animales.remove(position);
                                 notifyDataSetChanged();
 
+
+                                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                                if (currentUser == null) {
+                                    // El usuario no ha iniciado sesión, maneja este caso según tus necesidades
+                                    return;
+                                }
+                                String userId = currentUser.getUid();
+
+                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+                                // Crea un nodo "mascotas" dentro del nodo del usuario actual
+                                DatabaseReference mascotasRef = userRef.child("mascotas");
                                 // Obtener el ID de la mascota
                                 String petId = pet.getNombre();
 
-                                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-                                dbRef.child("mascotas").child(pet.getNombre().toString()).removeValue();
+                                mascotasRef.child(pet.getNombre().toString()).removeValue();
 
                                 String deleteToastMessage = contexto.getString(R.string.toast_delete_success, petId);
                                 Toast.makeText(contexto, deleteToastMessage, Toast.LENGTH_SHORT).show();
