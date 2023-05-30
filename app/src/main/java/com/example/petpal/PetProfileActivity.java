@@ -81,22 +81,17 @@ public class PetProfileActivity extends AppCompatActivity {
 
         // Obtén el objeto Pet del Intent
         Intent intent = getIntent();
-        if (intent != null && intent.hasExtra("animal")) {
-            Pet pet = (Pet) intent.getSerializableExtra("animal");
+        Pet pet = (Pet) getIntent().getSerializableExtra("pet");
+        info.setText("Nombre: " + pet.getNombre() +"\n"+"Animal: "+ pet.getAnimal() +"\n"+ "Raza: "+ pet.getRaza() +"\n"+ "Fecha de nacimiento: "+ pet.getFechaNacimiento() +"\n"+ "Peso: "+ pet.getPeso());
+        String imagen= getIntent().getStringExtra("imagen");
+        byte[] imageBytes = Base64.decode(imagen, Base64.DEFAULT);
 
-            // Verifica si se envió el objeto Pet y si no se envió una imagen
-            if (pet != null && pet.getImagenBitmap() == null) {
-                // No se envió una imagen, muestra una imagen de reemplazo o realiza otra acción
-                foto.setImageResource(R.drawable.icono); // Imagen de reemplazo
-            } else {
-                // Se envió una imagen
-                Bitmap imagenBitmap = pet.getImagenBitmap();
-                foto.setImageBitmap(imagenBitmap);
-            }
 
-            // Resto del código para mostrar otros datos de Pet en la actividad
-            // ...
-        }
+        Bitmap imagenBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        foto.setImageBitmap(imagenBitmap);
+
+
+
     }
 
 

@@ -18,6 +18,7 @@
     import android.view.View;
     import android.view.ViewGroup;
     import android.view.Window;
+    import android.widget.AdapterView;
     import android.widget.ArrayAdapter;
     import android.widget.Button;
     import android.widget.DatePicker;
@@ -73,6 +74,8 @@
             weightEditText = view.findViewById(R.id.epeso);
             dateTextView = view.findViewById(R.id.anyo);
             dateEditText = view.findViewById(R.id.eanyo);
+            final EditText otroAnimalEditText = view.findViewById(R.id.otroAnimalEditText);
+
             weightEditText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -104,6 +107,24 @@
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.nombres, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             animalSpinner.setAdapter(adapter);
+
+            animalSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selectedItem = parent.getItemAtPosition(position).toString();
+                    if (selectedItem.equals("Otro")) {
+                        otroAnimalEditText.setVisibility(View.VISIBLE);
+                    } else {
+                        otroAnimalEditText.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    // Nada que hacer aquí
+                }
+            });
+
             mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -121,7 +142,12 @@
                     }
                     String userId = currentUser.getUid();
 
-                    String animal = animalSpinner.getSelectedItem().toString();
+                    String animal;
+                    animal = animalSpinner.getSelectedItem().toString();
+                    if (animal.equals("Otro")) {
+                        animal = otroAnimalEditText.getText().toString();
+                    }
+
                     String nombre = nameEditText.getText().toString();
                     String raza = breedEditText.getText().toString();
                     String peso = weightEditText.getText().toString();
@@ -172,30 +198,26 @@
             return view;
         }
         private void showWeightPickerDialog() {
-            final NumberPicker kgNumberPicker = new NumberPicker(getActivity());
-            kgNumberPicker.setMinValue(0);
-            kgNumberPicker.setMaxValue(10);
+            View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.custom_number_picker_dialog, null);
+            final NumberPicker firstNumberPicker = dialogView.findViewById(R.id.first_number);
+            final NumberPicker secondNumberPicker = dialogView.findViewById(R.id.second_number);
 
-            final NumberPicker gNumberPicker = new NumberPicker(getActivity());
-            gNumberPicker.setMinValue(0);
-            gNumberPicker.setMaxValue(9);
-            gNumberPicker.setDisplayedValues(new String[]{"0", "10", "20", "30", "40", "50", "60", "70", "80", "90"});
-
-            LinearLayout layout = new LinearLayout(getActivity());
-            layout.setOrientation(LinearLayout.HORIZONTAL);
-            layout.addView(kgNumberPicker);
-            layout.addView(gNumberPicker);
+            firstNumberPicker.setMinValue(0);
+            firstNumberPicker.setMaxValue(20);
+            secondNumberPicker.setMinValue(0);
+            secondNumberPicker.setMaxValue(100);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("Seleccionar peso");
-            builder.setView(layout);
+            builder.setView(dialogView);
             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    int selectedKg = kgNumberPicker.getValue();
-                    int selectedG = gNumberPicker.getValue() * 100;
-                    int selectedWeight = selectedKg + selectedG;
-                    weightEditText.setText(String.valueOf(selectedWeight));
+                    int selectedFirstNumber = firstNumberPicker.getValue();
+                    int selectedSecondNumber = secondNumberPicker.getValue();
+
+                    String weight = selectedFirstNumber + "." + selectedSecondNumber + " kg ";
+                    weightEditText.setText(weight);
                 }
             });
             builder.setNegativeButton("Cancelar", null);
@@ -203,6 +225,7 @@
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+
 
 
         @Override

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder> {
@@ -86,15 +89,31 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
             fechaNacimiento.setText(pet.getFechaNacimiento());
             imagen.setImageBitmap(pet.getImagenBitmap());
 
+            Bitmap imagen = pet.getImagenBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            imagen.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] imageBytes = baos.toByteArray();
+
+            // Codifica los bytes en Base64
+            String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+
             // Maneja los eventos de clic aquí si es necesario
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(contexto, PetProfileActivity.class);
-                    intent.putExtra("animal", pet);
-                    contexto.startActivity(intent);
+                    try {
+                        Intent intent = new Intent(contexto, PetProfileActivity.class);
+                        intent.putExtra("pet", pet);
+                        intent.putExtra("imagen", base64Image);
+                        contexto.startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(contexto, "Error al abrir la actividad de perfil de mascota", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
+
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

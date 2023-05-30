@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Base64;
@@ -195,6 +197,32 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
     @Override
     public void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
+        // Obtén la referencia de la base de datos para el usuario actual
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            // El usuario no ha iniciado sesión, maneja este caso según tus necesidades
+            return;
+        }
+        String userId = currentUser.getUid();
 
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+        DatabaseReference mascotasRef = userRef.child("mascotas");
+
+        Pet pet = new Pet(animal, nombre, raza, peso, fechaNacimiento,imagen);
+        // Convierte la imagen a un arreglo de bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imagen.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        // Codifica los bytes en Base64
+        String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        pet.setImagenBase64(base64Image);
+
+        // Guarda la mascota en la base de datos usando la clave generada
+        mascotasRef.child(nombre).setValue(pet);
+
+        // Agrega la mascota a la lista animales
+        animales.add(pet);
+        adaptador.notifyDataSetChanged();
     }
+
 }
