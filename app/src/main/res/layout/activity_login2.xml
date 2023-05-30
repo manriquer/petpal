@@ -49,5 +49,12 @@
         android:text="@string/pulsa_para_registrarte"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+
 
 </LinearLayout>
