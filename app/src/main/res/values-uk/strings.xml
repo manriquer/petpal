@@ -75,4 +75,26 @@
     <string name="username">Ім\'я користувача</string>
 
 
+    <string name="dialog_title_select_weight">Виберіть вагу</string>
+    <string name="dialog_button_accept">Прийняти</string>
+    <string name="dialog_button_cancel">Скасувати</string>
+    <string name="enter_email">Введіть електронну пошту</string>
+    <string name="enter_password">Введіть пароль</string>
+    <string name="login_successful">Успішний вхід.</string>
+    <string name="login_failed">Помилка автентифікації.</string>
+    <string name="google_sign_in_failed">Помилка під час входу за допомогою Google</string>
+    <string name="select_weight">Виберіть вагу</string>
+    <string name="accept">Прийняти</string>
+    <string name="cancel">Скасувати</string>
+    <string name="confirmacion">Є ще домашні тварини?</string>
+    <string name="si">Так</string>
+    <string name="no">Ні</string>
+    <string name="recordatorio">Нагадування</string>
+    <string name="fecha_nacimiento">Дата народження</string>
+    <string name="enter_username">Введіть ім\'я користувача</string>
+    <string name="account_created">Створено обліковий запис.</string>
+    <string name="auth_failed">Помилка автентифікації.</string>
+    <string name="error_save_username">Помилка збереження імені користувача</string>
+    <string name="introducir_otro_tipo_animal">Введіть інший тип тварини</string>
+
 </resources>

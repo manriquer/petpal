@@ -74,5 +74,26 @@
     <string name="chat">Chat</string>
     <string name="username">Nome utente</string>
 
+    <string name="dialog_title_select_weight">Seleziona peso</string>
+    <string name="dialog_button_accept">Accetta</string>
+    <string name="dialog_button_cancel">Annulla</string>
+    <string name="enter_email">Inserisci l\'indirizzo email</string>
+    <string name="enter_password">Inserisci la password</string>
+    <string name="login_successful">Accesso effettuato con successo.</string>
+    <string name="login_failed">Errore di autenticazione.</string>
+    <string name="google_sign_in_failed">Errore durante l\'accesso con Google</string>
+    <string name="select_weight">Seleziona peso</string>
+    <string name="accept">Accetta</string>
+    <string name="cancel">Annulla</string>
+    <string name="confirmacion">Hai altre mascotte?</string>
+    <string name="si">Sì</string>
+    <string name="no">No</string>
+    <string name="recordatorio">Promemoria</string>
+    <string name="fecha_nacimiento">Data di nascita</string>
+    <string name="enter_username">Inserisci il nome utente</string>
+    <string name="account_created">Account creato.</string>
+    <string name="auth_failed">Autenticazione fallita.</string>
+    <string name="error_save_username">Errore durante il salvataggio del nome utente</string>
+    <string name="introducir_otro_tipo_animal">Inserisci un altro tipo di animale</string>
 
 </resources>

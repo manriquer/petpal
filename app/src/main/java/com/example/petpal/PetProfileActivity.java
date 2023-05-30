@@ -1,8 +1,10 @@
 package com.example.petpal;
+
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
 import android.widget.ListView;
 import android.view.View;
 import android.widget.TextView;
@@ -48,11 +50,6 @@ public class PetProfileActivity extends AppCompatActivity {
         // TOP APP BAR:
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
 
-
-
-
-
-
         topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,51 +69,32 @@ public class PetProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PetProfileActivity.this, ChatActivity.class);
                 startActivity(intent);
-                // Load chat room contents 
-
+                // Load chat room contents
             }
-
-
         });
 
         // Obtén el objeto Pet del Intent
         Intent intent = getIntent();
         Pet pet = (Pet) getIntent().getSerializableExtra("pet");
-        info.setText("Nombre: " + pet.getNombre() +"\n"+"Animal: "+ pet.getAnimal() +"\n"+ "Raza: "+ pet.getRaza() +"\n"+ "Fecha de nacimiento: "+ pet.getFechaNacimiento() +"\n"+ "Peso: "+ pet.getPeso());
-        String imagen= getIntent().getStringExtra("imagen");
+        String infoText = getString(R.string.nombre) + ": " + pet.getNombre() + "\n" +
+                getString(R.string.animal) + ": " + pet.getAnimal() + "\n" +
+                getString(R.string.raza) + ": " + pet.getRaza() + "\n" +
+                getString(R.string.fecha_nacimiento) + ": " + pet.getFechaNacimiento() + "\n" +
+                getString(R.string.peso) + ": " + pet.getPeso();
+        info.setText(infoText);
+
+        String imagen = getIntent().getStringExtra("imagen");
         byte[] imageBytes = Base64.decode(imagen, Base64.DEFAULT);
-
-
         Bitmap imagenBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
         foto.setImageBitmap(imagenBitmap);
-
-
-
     }
 
-
-
-
-
-// ...
-
-
-
-
-//        darpaseo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mostrarConfirmacion();
-//            }
-//        });
-
-
+    // ...
 
     public void paseo(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
-
 
     public void reco(View view) {
         Intent intent = new Intent(this, DistanceActivity.class);
@@ -130,16 +108,16 @@ public class PetProfileActivity extends AppCompatActivity {
 
     private void mostrarConfirmacion() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¿Con mas mascotas?");
+        builder.setTitle(R.string.confirmacion);
 
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Acción que deseas ejecutar si el usuario confirma
             }
         });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Acción que deseas ejecutar si el usuario cancela
@@ -150,5 +128,4 @@ public class PetProfileActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 }

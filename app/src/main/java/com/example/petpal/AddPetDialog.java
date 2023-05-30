@@ -107,17 +107,20 @@
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.nombres, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             animalSpinner.setAdapter(adapter);
+            /*animalSpinner.setSelection(0);*/
+
 
             animalSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    int lastIndex = parent.getCount() - 1;
                     String selectedItem = parent.getItemAtPosition(position).toString();
-                    if (selectedItem.equals("Otro")) {
+                    if (position == lastIndex) {
                         otroAnimalEditText.setVisibility(View.VISIBLE);
                     } else {
                         otroAnimalEditText.setVisibility(View.GONE);
                     }
                 }
+
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
@@ -143,10 +146,16 @@
                     String userId = currentUser.getUid();
 
                     String animal;
-                    animal = animalSpinner.getSelectedItem().toString();
-                    if (animal.equals("Otro")) {
+                    int lastPosition = animalSpinner.getAdapter().getCount() - 1;
+                    String lastItem = animalSpinner.getAdapter().getItem(lastPosition).toString();
+                    String selectedAnimal = animalSpinner.getSelectedItem().toString();
+
+                    if (selectedAnimal.equals(lastItem)) {
                         animal = otroAnimalEditText.getText().toString();
+                    } else {
+                        animal = selectedAnimal;
                     }
+
 
                     String nombre = nameEditText.getText().toString();
                     String raza = breedEditText.getText().toString();
@@ -208,9 +217,9 @@
             secondNumberPicker.setMaxValue(100);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle("Seleccionar peso");
+            builder.setTitle(getString(R.string.dialog_title_select_weight));
             builder.setView(dialogView);
-            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getString(R.string.dialog_button_accept), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     int selectedFirstNumber = firstNumberPicker.getValue();
@@ -220,11 +229,12 @@
                     weightEditText.setText(weight);
                 }
             });
-            builder.setNegativeButton("Cancelar", null);
+            builder.setNegativeButton(getString(R.string.dialog_button_cancel), null);
 
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+
 
 
 

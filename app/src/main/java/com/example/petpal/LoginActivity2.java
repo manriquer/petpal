@@ -75,8 +75,6 @@ public class LoginActivity2 extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-
-
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
@@ -100,11 +98,11 @@ public class LoginActivity2 extends AppCompatActivity {
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
                 if(TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginActivity2.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity2.this, getString(R.string.enter_email), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity2.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity2.this, getString(R.string.enter_password), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -114,19 +112,17 @@ public class LoginActivity2 extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(LoginActivity2.this, "Login succesful.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity2.this, getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Toast.makeText(LoginActivity2.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity2.this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
             }
         });
-
-
     }
 
     private void signIn() {
@@ -168,7 +164,7 @@ public class LoginActivity2 extends AppCompatActivity {
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
+                Log.w(TAG, getString(R.string.google_sign_in_failed), e);
             }
         }
     }
@@ -179,8 +175,7 @@ public class LoginActivity2 extends AppCompatActivity {
             String name = user.getDisplayName();
             String email = user.getEmail();
         } else {
+            // User is signed out
         }
     }
-
-
 }

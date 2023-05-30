@@ -44,6 +44,7 @@
     <string name="option_take_photo">Tomar foto</string>
     <string name="option_choose_gallery">Elegir de la galería</string>
     <string name="option_cancel">Cancelar</string>
+
     <string name="dialog_title">Elige una opción</string>
     <string name="dialog_title_delete">Eliminar</string>
     <string name="dialog_message_delete">¿Deseas eliminar este animal?</string>
@@ -62,6 +63,7 @@
     <string name="chat">Chat</string>
     <string name="username">Username</string>
     <string-array name="nombres">
+
         <item>Perro</item>
         <item>Gato</item>
         <item>Pez</item>
@@ -76,6 +78,41 @@
         <item>Otro</item>
 
     </string-array>
+    <!--traducir-->
+
+    <string name="dialog_title_select_weight">Seleccionar peso</string>
+    <string name="dialog_button_accept">Aceptar</string>
+    <string name="dialog_button_cancel">Cancelar</string>
+    <string name="enter_email">Introduce el correo electrónico</string>
+    <string name="enter_password">Introduce la contraseña</string>
+    <string name="login_successful">Inicio de sesión exitoso.</string>
+    <string name="login_failed">Error de autenticación.</string>
+    <string name="google_sign_in_failed">Error al iniciar sesión con Google</string>
+
+        <string name="select_weight">Seleccionar peso</string>
+        <string name="accept">Aceptar</string>
+        <string name="cancel">Cancelar</string>
+
+
+    <string name="confirmacion">¿Con más mascotas?</string>
+        <string name="si">Sí</string>
+        <string name="no">No</string>
+        <string name="recordatorio">Recordatorio</string>
+        <string name="fecha_nacimiento">Fecha de nacimiento</string>
+
+
+
+
+    <string name="introducir_otro_tipo_animal">Introduce otro tipo de animal</string>
+
+    <string name="enter_username">Enter username</string>
+        <string name="account_created">Account created.</string>
+        <string name="auth_failed">Authentication failed.</string>
+        <string name="error_save_username">Error saving username</string>
+
+
+
+
 
 
 </resources>

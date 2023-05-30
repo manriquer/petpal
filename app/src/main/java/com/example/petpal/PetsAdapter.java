@@ -109,7 +109,7 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
                         contexto.startActivity(intent);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(contexto, "Error al abrir la actividad de perfil de mascota", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(contexto, "Error", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
