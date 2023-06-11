@@ -111,8 +111,8 @@
         <string name="error_save_username">Error saving username</string>
 
 
-
-
+  <!--  traducir-->
+    <string name="welcome_message">Bienvenido %s a PetPal</string>
 
 
 </resources>

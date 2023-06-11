@@ -50,6 +50,8 @@ public class LoginActivity extends Activity {
         mGoogleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 signIn();
             }
         });
@@ -140,6 +142,8 @@ public class LoginActivity extends Activity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
+
     }
     // [END signin]
 

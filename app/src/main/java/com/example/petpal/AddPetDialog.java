@@ -51,7 +51,7 @@
         private static final int REQUEST_IMAGE_GALLERY = 2;
         private ImageView mImageView;
 
-
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -182,6 +182,11 @@
                         String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
                         // Obtén la referencia de la base de datos para el usuario actual
+
+                        // Sign in success, update UI with the signed-in user's information
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        String displayName = user.getDisplayName();
+
                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
                         // Crea un nodo "mascotas" dentro del nodo del usuario actual

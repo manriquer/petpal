@@ -28,6 +28,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity2 extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword;
@@ -40,7 +42,7 @@ public class LoginActivity2 extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
-
+    private DatabaseReference databaseReference;
     @Override
     public void onStart() {
         super.onStart();
@@ -65,6 +67,7 @@ public class LoginActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signIn();
+
             }
         });
 
@@ -112,6 +115,7 @@ public class LoginActivity2 extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
+
                                     Toast.makeText(LoginActivity2.this, getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
@@ -137,10 +141,26 @@ public class LoginActivity2 extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
+                            // Obtén la referencia de la base de datos
+                            databaseReference = FirebaseDatabase.getInstance().getReference();
+
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            String displayName = user.getDisplayName();
+                            String welcomeMessage = getString(R.string.welcome_message, displayName);
+                            String userId = user.getUid();
+
+                            databaseReference.child("users").child(userId).child("username").setValue(displayName);
+
+
+                            Toast.makeText(LoginActivity2.this, welcomeMessage, Toast.LENGTH_SHORT).show();
                             updateUI(user);
+
+                            // Redirect to MainActivity
+                            Intent intent = new Intent(LoginActivity2.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     FirebaseAuth auth;
     FirebaseUser user;
 
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,9 +134,18 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         // Obtén la referencia de la base de datos para el usuario actual
         String userId = currentUser.getUid();
 
+        // Sign in success, update UI with the signed-in user's information
+        FirebaseUser user = mAuth.getCurrentUser();
+        String displayName = user.getDisplayName();
+
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+
+
+
+
         // Crea un nodo "mascotas" dentro del nodo del usuario actual
         DatabaseReference mascotasRef = userRef.child("mascotas");
+
         mascotasRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
