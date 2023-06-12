@@ -25,11 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +54,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
         // TOP APP BAR:
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
         topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -69,71 +68,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            String displayName = currentUser.getDisplayName();
 
             // Actualización: Utiliza "users" en lugar de "ubicaciones" como colección base
-            userLocationRef = FirebaseDatabase.getInstance().getReference("users")
-                    .child(userId)
-                    .child("ubicacion");
+            userLocationRef = FirebaseDatabase.getInstance().getReference("users");
 
             userMarkers = new HashMap<>();
 
-            // Agregar un ChildEventListener para escuchar cambios en la ubicación de otros usuarios
-            userLocationRef.getParent().addChildEventListener(new ChildEventListener() {
+            // Obtener todas las ubicaciones de usuarios en la base de datos
+            userLocationRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
-                    if (dataSnapshot.exists() && dataSnapshot.getKey() != null && !dataSnapshot.getKey().equals(displayName)) {
-                        String latitudeString = dataSnapshot.child("latitude").getValue(String.class);
-                        String longitudeString = dataSnapshot.child("longitude").getValue(String.class);
-                        if (latitudeString != null && longitudeString != null) {
-                            double latitude = Double.parseDouble(latitudeString);
-                            double longitude = Double.parseDouble(longitudeString);
-                            LatLng userLocation = new LatLng(latitude, longitude);
-                            Marker marker = mMap.addMarker(new MarkerOptions().position(userLocation).title(dataSnapshot.getKey()));
-                            userMarkers.put(dataSnapshot.getKey(), marker);
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        String userId = userSnapshot.getKey();
+                        if (!userId.equals(currentUser.getUid())) {
+                            String latitudeString = userSnapshot.child("ubicacion").child("latitude").getValue(String.class);
+                            String longitudeString = userSnapshot.child("ubicacion").child("longitude").getValue(String.class);
+                            if (latitudeString != null && longitudeString != null) {
+                                double latitude = Double.parseDouble(latitudeString);
+                                double longitude = Double.parseDouble(longitudeString);
+                                LatLng userLocation = new LatLng(latitude, longitude);
+                                Marker marker = mMap.addMarker(new MarkerOptions().position(userLocation).title(userId));
+                                userMarkers.put(userId, marker);
+                            }
                         }
                     }
-                }
-
-
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
-                    // Actualizar la ubicación del usuario en el mapa si cambia
-                    if (dataSnapshot.exists() && dataSnapshot.getKey() != null && !dataSnapshot.getKey().equals(displayName)) {
-                        double latitude = dataSnapshot.child("latitude").getValue(Double.class);
-                        double longitude = dataSnapshot.child("longitude").getValue(Double.class);
-                        LatLng userLocation = new LatLng(latitude, longitude);
-                        Marker marker = userMarkers.get(dataSnapshot.getKey());
-                        if (marker != null) {
-                            marker.setPosition(userLocation);
-                        } else {
-                            marker = mMap.addMarker(new MarkerOptions().position(userLocation).title(dataSnapshot.getKey()));
-                            userMarkers.put(dataSnapshot.getKey(), marker);
-                        }
-                    }
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                    // Eliminar el marcador del usuario si se elimina su ubicación
-                    if (dataSnapshot.getKey() != null) {
-                        Marker marker = userMarkers.get(dataSnapshot.getKey());
-                        if (marker != null) {
-                            marker.remove();
-                            userMarkers.remove(dataSnapshot.getKey());
-                        }
-                    }
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String previousChildName) {
-                    // No es necesario realizar ninguna acción en este caso
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // No es necesario realizar ninguna acción en este caso
+                    // Manejar errores, si es necesario
                 }
             });
         }
@@ -161,13 +124,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void saveUserLocation() {
-        if (userLocationRef != null && currentLocation != null) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (userLocationRef != null && currentUser != null && currentLocation != null) {
+            String userId = currentUser.getUid();
             String latitude = String.valueOf(currentLocation.getLatitude());
             String longitude = String.valueOf(currentLocation.getLongitude());
 
             // Actualización: Guarda latitud y longitud como campos en lugar de un objeto LatLng
-            userLocationRef.child("latitude").setValue(latitude);
-            userLocationRef.child("longitude").setValue(longitude);
+            userLocationRef.child(userId).child("ubicacion").child("latitude").setValue(latitude);
+            userLocationRef.child(userId).child("ubicacion").child("longitude").setValue(longitude);
         }
     }
 
@@ -179,13 +144,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(loc).title("Your Current Location"));
             float zoomLevel = 18.0f;
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, zoomLevel));
-
-            // Llama a saveUserLocation() después de asegurarte de que mMap esté inicializado
-            saveUserLocation();
         }
     }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
