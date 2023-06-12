@@ -78,17 +78,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             userLocationRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                        String userId = userSnapshot.getKey();
-                        if (!userId.equals(currentUser.getUid())) {
-                            String latitudeString = userSnapshot.child("ubicacion").child("latitude").getValue(String.class);
-                            String longitudeString = userSnapshot.child("ubicacion").child("longitude").getValue(String.class);
-                            if (latitudeString != null && longitudeString != null) {
-                                double latitude = Double.parseDouble(latitudeString);
-                                double longitude = Double.parseDouble(longitudeString);
-                                LatLng userLocation = new LatLng(latitude, longitude);
-                                Marker marker = mMap.addMarker(new MarkerOptions().position(userLocation).title(userId));
-                                userMarkers.put(userId, marker);
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                            String userId = userSnapshot.getKey();
+                            String username = userSnapshot.child("username").getValue(String.class);
+
+                            if (userId != null && username != null) {
+                                String latitudeString = userSnapshot.child("ubicacion").child("latitude").getValue(String.class);
+                                String longitudeString = userSnapshot.child("ubicacion").child("longitude").getValue(String.class);
+
+                                if (latitudeString != null && longitudeString != null) {
+                                    double latitude = Double.parseDouble(latitudeString);
+                                    double longitude = Double.parseDouble(longitudeString);
+                                    LatLng userLocation = new LatLng(latitude, longitude);
+                                    Marker marker = mMap.addMarker(new MarkerOptions().position(userLocation).title(username));
+                                    userMarkers.put(userId, marker);
+                                }
                             }
                         }
                     }
