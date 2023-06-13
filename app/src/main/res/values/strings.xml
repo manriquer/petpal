@@ -113,6 +113,9 @@
 
   <!--  traducir-->
     <string name="welcome_message">Bienvenido %s a PetPal</string>
+    <string name="menu_home">Inicio</string>
+    <string name="menu_messages">Mensajes</string>
+    <string name="menu_profile">Perfil</string>
 
 
 </resources>
