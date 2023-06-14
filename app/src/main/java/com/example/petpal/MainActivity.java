@@ -1,6 +1,5 @@
 package com.example.petpal;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,7 +24,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Base64;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAgregarAnimalListener {
 
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         if (user == null) {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity2.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         }
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
             public boolean onMenuItemClick(MenuItem item) {
                 if(item.getItemId()== R.id.logout) {
                     FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity2.class);
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();
                     return true;

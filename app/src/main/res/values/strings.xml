@@ -51,13 +51,13 @@
     <string name="dialog_button_yes">Sí</string>
     <string name="dialog_button_no">No</string>
     <string name="toast_delete_success">Has eliminado a %1$s correctamente.</string>
-    <string name="login">Login</string>
+    <string name="login">¿Ya tienes cuenta? Accede: </string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="btn_login">Login</string>
     <string name="register">Register</string>
     <string name="pulsa_para_login">Pulsa para Login</string>
-    <string name="pulsa_para_registrarte">Pulsa para Registrarte</string>
+    <string name="pulsa_para_registrarte">¿Todavía no tienes cuenta? Registrate aquí</string>
     <string name="logout">Cerrar sesión</string>
     <string name="logout_desc">Cerrar sesión</string>
     <string name="chat">Chat</string>
@@ -113,6 +113,8 @@
 
   <!--  traducir-->
     <string name="welcome_message">Bienvenido %s a PetPal</string>
+    <string name="logo">Logo</string>
+    <string name="login2">Login</string>
 
 
 </resources>

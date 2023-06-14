@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,32 +9,27 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.PetpalTheme"
         tools:targetApi="31">
 
         <activity
             android:name=".LoginActivity"
-            android:exported="false"
-
-            />
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DistanceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity2"
             android:exported="true"
-            android:theme="@style/Theme.App.Starting"
-            >
-            <!--            android:theme="@style/Theme.App.Starting"-->
+            android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".LoginActivity">
+            <meta-data
+                android:name="androidx.appcompat.app.PARENT_ACTIVITY"
+                android:value=".LoginActivity" />
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:parentActivityName=".LoginActivity"
@@ -47,6 +38,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
+
         <activity
             android:name=".PetProfileActivity"
             android:parentActivityName=".MainActivity">
@@ -69,10 +61,6 @@
                project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
                "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC7tdpxsHi1k3p22Xbgy1EkJxf2w4vNWo0" />
-
         <activity
             android:name=".ChatActivity"
             android:parentActivityName=".PetProfileActivity">
@@ -80,6 +68,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PetProfileActivity" />
         </activity>
+
+        <activity
+            android:name=".DistanceActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC7tdpxsHi1k3p22Xbgy1EkJxf2w4vNWo0" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
