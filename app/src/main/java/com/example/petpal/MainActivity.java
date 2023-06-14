@@ -6,11 +6,16 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.petpal.Pet;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     FirebaseAuth auth;
     FirebaseUser user;
 
+    int selectedNavItem; // Variable para almacenar la opción de navegación seleccionada
+
+
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -42,6 +50,44 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        selectedNavItem = R.id.navigation_home;
+
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        // Acción cuando se selecciona la opción de casa
+
+                        selectedNavItem = R.id.navigation_home;
+
+                        return true;
+                    case R.id.navigation_messages:
+                        // Acción cuando se selecciona la opción de mensajes
+                        selectedNavItem = R.id.navigation_messages;
+
+
+                        animales.clear();
+                        adaptador.notifyDataSetChanged();
+
+                        // Mostrar las salas de chat
+                        showChatRooms();
+
+                        return true;
+                    case R.id.navigation_profile:
+                        // Acción cuando se selecciona la opción de perfil
+
+                        selectedNavItem = R.id.navigation_profile;
+
+                        return true;
+                }
+                return false;
+            }
+        });
+
 
         // FIREBASE LOGOUT:
         auth = FirebaseAuth.getInstance();
@@ -54,12 +100,6 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
         // TOP APP BAR:
         MaterialToolbar topAppBar = findViewById(R.id.topAppBar);
-//        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onBackPressed();
-//            }
-//        });
         topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -83,65 +123,22 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
                 AddPetDialog dialogo = new AddPetDialog();
                 dialogo.show(getSupportFragmentManager(), "Add pet dialog");
 
-//                PetDialog myDialog = new PetDialog(MainActivity.this);
-//                myDialog.show();
-
-
-//                new MaterialAlertDialogBuilder(MainActivity.this)
-//                        .setTitle("Titulo")
-//                        .setMessage("Mensaje")
-//                        .setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // Respond to neutral button press
-//                            }
-//                        })
-//                        .setNegativeButton("Declinar", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // Respond to negative button press
-//                            }
-//                        })
-//                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                // Respond to positive button press
-//                            }
-//                        })
-//                        .show();
-
                 animales.clear();
             }
         });
 
         // LISTA:
         animales = new ArrayList<>();
-        /*Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back_24dp);*/
-        /*Pet gato= new Pet("Stanis","salvaje","3kg","15/06/2003", bitmap);
-        animales.add(gato);
 
-
-        Pet perro = new Pet("faeba","sfinx","100kg","23/03/2000A.C", bitmap);
-        animales.add(perro);*/
-
+        // Obtén la referencia de la base de datos para el usuario actual
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             // El usuario no ha iniciado sesión, maneja este caso según tus necesidades
             return;
         }
-        // Obtén la referencia de la base de datos para el usuario actual
         String userId = currentUser.getUid();
 
-        // Sign in success, update UI with the signed-in user's information
-        FirebaseUser user = mAuth.getCurrentUser();
-        String displayName = user.getDisplayName();
-
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
-
-
-
-
-        // Crea un nodo "mascotas" dentro del nodo del usuario actual
         DatabaseReference mascotasRef = userRef.child("mascotas");
 
         mascotasRef.addValueEventListener(new ValueEventListener() {
@@ -154,14 +151,9 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
                     String peso = childSnapshot.child("peso").getValue(String.class);
                     String fechaNacimiento = childSnapshot.child("fechaNacimiento").getValue(String.class);
 
-
                     String imagenBase64 = childSnapshot.child("imagenBase64").getValue(String.class);
-
                     byte[] imageBytes = Base64.decode(imagenBase64, Base64.DEFAULT);
-
-
                     Bitmap imagenBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-
 
                     // Crea un nuevo objeto Pet con los datos obtenidos
                     Pet mascota = new Pet(animal, nombre, raza, peso, fechaNacimiento, imagenBitmap);
@@ -180,30 +172,12 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
             }
         });
 
-
-        // Write a message to the database
-
-        /*  DatabaseReference mMessagesRef = mRootRef.child("mascotas");*/
-
-
-
-
-
-       /* Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back_24dp);
-        Pet friendlyMessage = new Pet("Stanis","salvaje","3kg","15/06/2003", bitmap);*/
-
-       /* mMessagesRef.push().setValue(gato);
-        mMessagesRef.push().setValue(perro);*/
-
         recyclerViewAnimales = findViewById(R.id.recyclerViewAnimales);
         adaptador = new PetsAdapter(animales, this);
         recyclerLayoutManager = new LinearLayoutManager(this);
         recyclerViewAnimales.setLayoutManager(recyclerLayoutManager);
         recyclerViewAnimales.setAdapter(adaptador);
     }
-
-
-
 
     @Override
     public void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen) {
@@ -235,4 +209,9 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         adaptador.notifyDataSetChanged();
     }
 
+    private void showChatRooms() {
+        // Lógica para mostrar las salas de chat
+
+
+    }
 }

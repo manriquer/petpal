@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FusedLocationProviderClient fusedLocationProviderClient;
     private DatabaseReference userLocationRef;
     private Map<String, Marker> userMarkers;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
@@ -129,7 +131,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void saveUserLocation() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (userLocationRef != null && currentUser != null && currentLocation != null) {
             String userId = currentUser.getUid();
             String latitude = String.valueOf(currentLocation.getLatitude());
@@ -150,6 +151,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             float zoomLevel = 18.0f;
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, zoomLevel));
         }
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String otherUserId = null;
+
+                // Obtén el ID de usuario de la otra persona
+                for (Map.Entry<String, Marker> entry : userMarkers.entrySet()) {
+                    if (entry.getValue().equals(marker)) {
+                        otherUserId = entry.getKey();
+                        break;
+                    }
+                }
+
+                if (otherUserId != null) {
+                    // Genera el ID de la sala de chat único y compartido
+                    String chatId = generateChatId(currentUser.getUid(), otherUserId);
+
+                    Intent intent = new Intent(MapsActivity.this, ChatActivity.class);
+                    intent.putExtra("chatId", chatId);
+                    startActivity(intent);
+
+                }
+
+                return false;
+            }
+        });
+    }
+
+    private String generateChatId(String userId1, String userId2) {
+        // Concatena los IDs de usuario en un orden específico
+        String concatenatedIds;
+        if (userId1.compareTo(userId2) < 0) {
+            concatenatedIds = userId1 + userId2;
+        } else {
+            concatenatedIds = userId2 + userId1;
+        }
+
+        // Genera un hash único a partir de la concatenación
+        return Integer.toString(concatenatedIds.hashCode());
     }
 
     @Override
