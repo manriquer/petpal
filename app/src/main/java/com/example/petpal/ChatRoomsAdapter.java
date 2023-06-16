@@ -1,6 +1,7 @@
 package com.example.petpal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,9 +67,10 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.Chat
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Lógica para abrir la sala de chat cuando se hace clic en un elemento del RecyclerView
-                    // Puedes abrir la sala de chat o realizar alguna otra acción según tus necesidades
-                    Toast.makeText(context, "Sala de chat seleccionada: " + chatRoom.getRoomId(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ChatActivity.class);
+                    intent.putExtra("chatId", chatRoom.getRoomId());
+                    context.startActivity(intent);
+
                 }
             });
         }
