@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/home48px"
-        android:title="@string/menu_home" />
+        tools:ignore="MenuTitle" />
     <item
         android:id="@+id/navigation_messages"
         android:icon="@drawable/chat48px"
-        android:title="@string/menu_messages" />
+        tools:ignore="MenuTitle" />
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/person48px"
-        android:title="@string/menu_profile" />
+        tools:ignore="MenuTitle" />
 </menu>

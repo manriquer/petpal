@@ -41,11 +41,15 @@
                 ListView listView = findViewById(R.id.list_view);
                 EditText input = findViewById(R.id.input);
 
+                String chatId = getIntent().getStringExtra("chatId");
+
+
+
                 currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 String currentUserId = currentUser.getUid();
                 String otherUserId = getIntent().getStringExtra("otherUserId");
                 String chatRoomId = "chat_" + currentUserId + "_" + otherUserId;
-                chatRef = FirebaseDatabase.getInstance().getReference("chats").child(chatRoomId);
+                chatRef = FirebaseDatabase.getInstance().getReference("chats").child(chatId);
 
                 displayChatMessages(listView);
 

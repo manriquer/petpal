@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -29,6 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Base64;
+import android.widget.AdapterView;
 
 public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAgregarAnimalListener {
 
@@ -39,10 +41,16 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     LinearLayoutManager recyclerLayoutManager;
     FirebaseAuth auth;
     FirebaseUser user;
+    List<ChatRoom> chatRooms;
+
+    ChatRoomsAdapter adapter;
+
+    ChatRoomsAdapter.OnItemClickListener chatItemClickListener; // Nueva instancia de la interfaz
+
+    private RecyclerView recyclerViewChatRooms;
+    private ChatRoomsAdapter chatRoomsAdapter;
 
     int selectedNavItem; // Variable para almacenar la opción de navegación seleccionada
-
-
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -50,9 +58,84 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        chatRooms = new ArrayList<>();
         selectedNavItem = R.id.navigation_home;
 
+        recyclerViewChatRooms = findViewById(R.id.recyclerViewChatRooms);
+        chatRoomsAdapter = new ChatRoomsAdapter(chatRooms, this);
+        recyclerViewChatRooms.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewChatRooms.setAdapter(chatRoomsAdapter);
+        showChatRooms();
+
+
+        // Inicializa la instancia de la interfaz
+        chatItemClickListener = new ChatRoomsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                ChatRoom chatRoom = chatRooms.get(position); // Obtén la sala de chat seleccionada
+                String chatId = chatRoom.getRoomId();
+
+                // Abre ChatActivity y envía el chatId como extra
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                intent.putExtra("chatId", chatId);
+                startActivity(intent);
+            }
+        };
+
+// Configura la instancia de la interfaz en el adaptador
+        chatRoomsAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // Llama al método onItemClick de nuestra instancia chatItemClickListener
+                chatItemClickListener.onItemClick(position);
+            }
+        });
+
+
+        // Obtén la referencia de la base de datos para el usuario actual
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+            DatabaseReference mascotasRef = userRef.child("mascotas");
+
+            mascotasRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (selectedNavItem == R.id.navigation_home) {
+                        animales.clear(); // Reinicia la lista solo cuando se selecciona la opción de "home"
+
+                        for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                            // Resto del código para obtener y agregar las mascotas a la lista
+                            String animal = childSnapshot.child("animal").getValue(String.class);
+                            String nombre = childSnapshot.child("nombre").getValue(String.class);
+                            String raza = childSnapshot.child("raza").getValue(String.class);
+                            String peso = childSnapshot.child("peso").getValue(String.class);
+                            String fechaNacimiento = childSnapshot.child("fechaNacimiento").getValue(String.class);
+
+                            String imagenBase64 = childSnapshot.child("imagenBase64").getValue(String.class);
+                            byte[] imageBytes = Base64.decode(imagenBase64, Base64.DEFAULT);
+                            Bitmap imagenBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+                            // Crea un nuevo objeto Pet con los datos obtenidos
+                            Pet mascota = new Pet(animal, nombre, raza, peso, fechaNacimiento, imagenBitmap);
+
+                            // Agrega la mascota a la lista de animales
+                            animales.add(mascota);
+                        }
+
+                        adaptador.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Maneja el error de lectura de la base de datos
+                }
+            });
+
+        }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,22 +147,70 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
                         selectedNavItem = R.id.navigation_home;
 
+                        fab.setVisibility(View.VISIBLE);
+                        recyclerViewAnimales.setVisibility(View.VISIBLE);
+
+                        recyclerViewChatRooms.setVisibility(View.GONE);
+
+
+                        // Obtén la referencia de la base de datos para el usuario actual
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if (currentUser == null) {
+                            // El usuario no ha iniciado sesión, maneja este caso según tus necesidades
+                            break;
+                        }
+                        String userId = currentUser.getUid();
+
+                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
+                        DatabaseReference mascotasRef = userRef.child("mascotas");
+
+                        mascotasRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                animales.clear(); // Reinicia la lista antes de agregar los nuevos elementos
+
+                                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                                    String animal = childSnapshot.child("animal").getValue(String.class);
+                                    String nombre = childSnapshot.child("nombre").getValue(String.class);
+                                    String raza = childSnapshot.child("raza").getValue(String.class);
+                                    String peso = childSnapshot.child("peso").getValue(String.class);
+                                    String fechaNacimiento = childSnapshot.child("fechaNacimiento").getValue(String.class);
+
+                                    String imagenBase64 = childSnapshot.child("imagenBase64").getValue(String.class);
+                                    byte[] imageBytes = Base64.decode(imagenBase64, Base64.DEFAULT);
+                                    Bitmap imagenBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+                                    // Crea un nuevo objeto Pet con los datos obtenidos
+                                    Pet mascota = new Pet(animal, nombre, raza, peso, fechaNacimiento, imagenBitmap);
+
+                                    // Agrega la mascota a la lista de animales
+                                    animales.add(mascota);
+                                }
+
+                                // Actualiza el adaptador del RecyclerView si es necesario
+                                adaptador.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+                                // Maneja el error de lectura de la base de datos
+                            }
+                        });
+
                         return true;
                     case R.id.navigation_messages:
-                        // Acción cuando se selecciona la opción de mensajes
                         selectedNavItem = R.id.navigation_messages;
 
+                        fab.setVisibility(View.GONE);
+                        recyclerViewAnimales.setVisibility(View.GONE);
+                        recyclerViewChatRooms.setVisibility(View.VISIBLE);
 
-                        animales.clear();
-                        adaptador.notifyDataSetChanged();
-
-                        // Mostrar las salas de chat
                         showChatRooms();
-
                         return true;
+
+
                     case R.id.navigation_profile:
                         // Acción cuando se selecciona la opción de perfil
-
                         selectedNavItem = R.id.navigation_profile;
 
                         return true;
@@ -87,7 +218,6 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
                 return false;
             }
         });
-
 
         // FIREBASE LOGOUT:
         auth = FirebaseAuth.getInstance();
@@ -103,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId()== R.id.logout) {
+                if (item.getItemId() == R.id.logout) {
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
@@ -129,48 +259,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
         // LISTA:
         animales = new ArrayList<>();
-
-        // Obtén la referencia de la base de datos para el usuario actual
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
-            // El usuario no ha iniciado sesión, maneja este caso según tus necesidades
-            return;
-        }
-        String userId = currentUser.getUid();
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
-        DatabaseReference mascotasRef = userRef.child("mascotas");
-
-        mascotasRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    String animal = childSnapshot.child("animal").getValue(String.class);
-                    String nombre = childSnapshot.child("nombre").getValue(String.class);
-                    String raza = childSnapshot.child("raza").getValue(String.class);
-                    String peso = childSnapshot.child("peso").getValue(String.class);
-                    String fechaNacimiento = childSnapshot.child("fechaNacimiento").getValue(String.class);
-
-                    String imagenBase64 = childSnapshot.child("imagenBase64").getValue(String.class);
-                    byte[] imageBytes = Base64.decode(imagenBase64, Base64.DEFAULT);
-                    Bitmap imagenBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-
-                    // Crea un nuevo objeto Pet con los datos obtenidos
-                    Pet mascota = new Pet(animal, nombre, raza, peso, fechaNacimiento, imagenBitmap);
-
-                    // Agrega la mascota a la lista de animales
-                    animales.add(mascota);
-                }
-
-                // Actualiza el adaptador del RecyclerView si es necesario
-                adaptador.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Maneja el error de lectura de la base de datos
-            }
-        });
+         // Crear una nueva instancia de lista
 
         recyclerViewAnimales = findViewById(R.id.recyclerViewAnimales);
         adaptador = new PetsAdapter(animales, this);
@@ -192,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
         DatabaseReference mascotasRef = userRef.child("mascotas");
 
-        Pet pet = new Pet(animal, nombre, raza, peso, fechaNacimiento,imagen);
+        Pet pet = new Pet(animal, nombre, raza, peso, fechaNacimiento, imagen);
         // Convierte la imagen a un arreglo de bytes
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imagen.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -210,8 +299,43 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
     }
 
     private void showChatRooms() {
-        // Lógica para mostrar las salas de chat
+        // Obtén una referencia a la base de datos de Firebase
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference chatsRef = database.getReference("chats");
+
+        // Accede a la ubicación de la base de datos donde se almacenan las salas de chat
+        chatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                chatRooms.clear(); // Limpia la lista antes de agregar las nuevas salas de chat
+
+                // Leer los datos de Firebase y convertirlos en objetos ChatRoom
+                for (DataSnapshot chatSnapshot : dataSnapshot.getChildren()) {
+                    String chatId = chatSnapshot.getKey();
+
+                    ChatRoom chatRoom = new ChatRoom(chatId);
+                    chatRooms.add(chatRoom);
+                }
+
+                // Notifica al adaptador que los datos han cambiado
+                chatRoomsAdapter.notifyDataSetChanged();
+
+                // Agrega el listener para el evento de clic en la lista
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Manejar cualquier error de lectura de Firebase aquí
+            }
+        });
 
 
     }
+
+
 }
+
+
+
+
