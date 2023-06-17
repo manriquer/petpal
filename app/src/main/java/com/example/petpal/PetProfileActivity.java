@@ -36,11 +36,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class PetProfileActivity extends AppCompatActivity {
 
-    private FirebaseListAdapter<ChatMessage> adapter;
+//    private FirebaseListAdapter<ChatMessage> adapter;
     ImageView foto;
     TextView info;
     Button darpaseo, anyadirreco;
-    Button chat;
+//    Button chat;
     Button reminder;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +60,18 @@ public class PetProfileActivity extends AppCompatActivity {
         foto = findViewById(R.id.foto);
         info = findViewById(R.id.info);
         darpaseo = findViewById(R.id.darpaseo);
-        anyadirreco = findViewById(R.id.recordatorio);
-        chat = findViewById(R.id.chat);
+//        anyadirreco = findViewById(R.id.recordatorio);
+//        chat = findViewById(R.id.chat);
         reminder = findViewById(R.id.reminder);
 
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PetProfileActivity.this, ChatActivity.class);
-                startActivity(intent);
-                // Load chat room contents
-            }
-        });
+//        chat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(PetProfileActivity.this, ChatActivity.class);
+//                startActivity(intent);
+//                // Load chat room contents
+//            }
+//        });
 
         // Obtén el objeto Pet del Intent
         Intent intent = getIntent();
