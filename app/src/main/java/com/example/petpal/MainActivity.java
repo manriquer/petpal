@@ -74,17 +74,7 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
 
 
 
-        if (user != null) {
-            // Obtén la URL de la foto de perfil del usuario
-            String photoUrl = user.getPhotoUrl().toString();
 
-            // Carga la imagen en un ImageView utilizando Picasso
-            ImageView imageView = findViewById(R.id.imageView);
-            Picasso.get().load(photoUrl).into(imageView);
-        } else {
-            // El usuario no ha iniciado sesión
-            System.out.println("El usuario no ha iniciado sesión.");
-        }
 
         // Inicializa la instancia de la interfaz
         chatItemClickListener = new ChatRoomsAdapter.OnItemClickListener() {
@@ -238,6 +228,17 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
                         recyclerViewChatRooms.setVisibility(View.GONE);
 
                         ln.setVisibility(View.VISIBLE);
+                        if (user != null) {
+                            // Obtén la URL de la foto de perfil del usuario
+                            String photoUrl = user.getPhotoUrl().toString();
+
+                            // Carga la imagen en un ImageView utilizando Picasso
+                            ImageView imageView = findViewById(R.id.imageView);
+                            Picasso.get().load(photoUrl).into(imageView);
+                        } else {
+                            // El usuario no ha iniciado sesión
+                            System.out.println("El usuario no ha iniciado sesión.");
+                        }
                         return true;
                 }
                 return false;
