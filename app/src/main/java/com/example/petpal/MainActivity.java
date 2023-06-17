@@ -25,12 +25,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import android.util.Base64;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAgregarAnimalListener {
 
@@ -54,19 +57,34 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+    LinearLayout ln;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         chatRooms = new ArrayList<>();
         selectedNavItem = R.id.navigation_home;
-
+        ln = findViewById(R.id.Perfil);
         recyclerViewChatRooms = findViewById(R.id.recyclerViewChatRooms);
         chatRoomsAdapter = new ChatRoomsAdapter(chatRooms, this);
         recyclerViewChatRooms.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewChatRooms.setAdapter(chatRoomsAdapter);
         showChatRooms();
 
+
+
+        if (user != null) {
+            // Obtén la URL de la foto de perfil del usuario
+            String photoUrl = user.getPhotoUrl().toString();
+
+            // Carga la imagen en un ImageView utilizando Picasso
+            ImageView imageView = findViewById(R.id.imageView);
+            Picasso.get().load(photoUrl).into(imageView);
+        } else {
+            // El usuario no ha iniciado sesión
+            System.out.println("El usuario no ha iniciado sesión.");
+        }
 
         // Inicializa la instancia de la interfaz
         chatItemClickListener = new ChatRoomsAdapter.OnItemClickListener() {
@@ -151,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
                         recyclerViewAnimales.setVisibility(View.VISIBLE);
 
                         recyclerViewChatRooms.setVisibility(View.GONE);
+                        ln.setVisibility(View.GONE);
 
 
                         // Obtén la referencia de la base de datos para el usuario actual
@@ -204,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
                         fab.setVisibility(View.GONE);
                         recyclerViewAnimales.setVisibility(View.GONE);
                         recyclerViewChatRooms.setVisibility(View.VISIBLE);
+                        ln.setVisibility(View.GONE);
 
                         showChatRooms();
                         return true;
@@ -212,7 +232,12 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
                     case R.id.navigation_profile:
                         // Acción cuando se selecciona la opción de perfil
                         selectedNavItem = R.id.navigation_profile;
+                        fab.setVisibility(View.GONE);
+                        recyclerViewAnimales.setVisibility(View.GONE);
 
+                        recyclerViewChatRooms.setVisibility(View.GONE);
+
+                        ln.setVisibility(View.VISIBLE);
                         return true;
                 }
                 return false;
