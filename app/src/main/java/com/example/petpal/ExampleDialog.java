@@ -34,6 +34,7 @@ public class ExampleDialog extends DialogFragment {
 
         toolbar = view.findViewById(R.id.toolbar);
 
+
         return view;
     }
 
