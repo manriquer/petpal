@@ -42,20 +42,13 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
     public static final String TAG = "dialog_add_pet";
     private Toolbar toolbar;
     private EditText name, breed, weight, date;
-
     private EditText otroAnimalEditText;
-
     private Spinner animalSpinner;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_GALLERY = 2;
     private ImageView mImageView;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-//    public static DialogAddPet display(FragmentManager fragmentManager) {
-//        DialogAddPet dialog = new DialogAddPet();
-//        dialog.show(fragmentManager, TAG);
-//        return dialog;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,8 +61,9 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.dialog_add_pet, container, false);
 
-        name = view.findViewById(R.id.enombre);
         toolbar = view.findViewById(R.id.toolbar);
+
+        name = view.findViewById(R.id.enombre);
         breed = view.findViewById(R.id.eraza);
         date = view.findViewById(R.id.eanyo);
         weight = view.findViewById(R.id.epeso);

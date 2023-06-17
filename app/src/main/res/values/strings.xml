@@ -29,7 +29,7 @@
     <string name="introducir_anyo">Introduzca año</string>
     <string name="anyo">Año</string>
     <string name="introducir_nombre">Introduzca Nombre</string>
-    <string name="nombre">Nombre:</string>
+    <string name="nombre">Nombre</string>
     <string name="foto">Foto</string>
     <string name="anadir">añadir</string>
     <!-- Strings -->
@@ -133,6 +133,9 @@
     <string name="nombre_de_usuario">Nombre de Usuario:</string>
     <string name="cambiar_idioma">Cambiar idioma:</string>
     <string name="email_main">Email</string>
+    <string name="asunto">Asunto</string>
+    <string name="cita">¿Cita en el veterinario?¿Recordartorio? Apúntalo:</string>
+    <string name="fecha">Fecha</string>
 
 
 </resources>

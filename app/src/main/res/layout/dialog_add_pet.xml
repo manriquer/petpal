@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -50,12 +51,6 @@
                     android:entries="@array/nombres" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-<!--                <EditText-->
-<!--                    android:id="@+id/otroAnimalEditText"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="@string/introducir_otro_tipo_animal"-->
-<!--                    android:visibility="gone" />-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
