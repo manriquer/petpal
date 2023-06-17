@@ -3,13 +3,20 @@ package com.example.petpal;
 public class ChatRoom {
     private String roomId;
 
-
+    private String roomName;
     // Constructor, getters y setters
 
-    public ChatRoom(String roomId) {
 
-        this.roomId = roomId;
+    public ChatRoom(String roomName) {
+        this.roomName = roomName;
+    }
 
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     public ChatRoom() {

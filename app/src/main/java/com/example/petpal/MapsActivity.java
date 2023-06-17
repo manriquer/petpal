@@ -1,9 +1,5 @@
 package com.example.petpal;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,6 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+
+import com.example.petpal.databinding.ActivityMapsBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,7 +21,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.petpal.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -163,16 +163,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         otherUserId = entry.getKey();
                         break;
                     }
-                }
-
-                if (otherUserId != null) {
-                    // Genera el ID de la sala de chat único y compartido
-                    String chatId = generateChatId(currentUser.getUid(), otherUserId);
-
-                    Intent intent = new Intent(MapsActivity.this, ChatActivity.class);
-                    intent.putExtra("chatId", chatId);
-                    startActivity(intent);
-
                 }
 
                 return false;

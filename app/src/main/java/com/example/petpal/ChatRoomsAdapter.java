@@ -62,13 +62,13 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.Chat
         }
 
         public void bind(ChatRoom chatRoom) {
-            chatRoomName.setText(chatRoom.getRoomId());
+            chatRoomName.setText(chatRoom.getRoomName());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ChatActivity.class);
-                    intent.putExtra("chatId", chatRoom.getRoomId());
+                    intent.putExtra("chatName", chatRoom.getRoomName());
                     context.startActivity(intent);
 
                 }
