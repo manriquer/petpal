@@ -35,7 +35,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAgregarAnimalListener {
+public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAgregarAnimalListener {
 
     RecyclerView recyclerViewAnimales;
     List<Pet> animales;

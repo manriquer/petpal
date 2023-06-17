@@ -115,6 +115,7 @@
     <string name="welcome_message">Bienvenido %s a PetPal</string>
     <string name="logo">Logo</string>
     <string name="login2">Login</string>
+    <string name="add_pet">Añadir</string>
 
 
 </resources>
