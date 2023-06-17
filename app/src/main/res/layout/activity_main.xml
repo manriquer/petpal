@@ -1,118 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <!-- TOOLBAR -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/top_app_bar"
-                app:titleCentered="true">
-
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/petpal"
-                    android:src="@drawable/logo_petpal" />
-            </com.google.android.material.appbar.MaterialToolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <!-- RecyclerView for Animales -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewAnimales"
-            android:layout_width="match_parent"
-            android:layout_height="571dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-        <!-- RecyclerView for ChatRooms -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewChatRooms"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="571dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-        <!-- LinearLayout invisible -->
-
-        <LinearLayout
-            android:id="@+id/Perfil"
-            android:layout_width="match_parent"
-            android:layout_height="570dp"
-            android:orientation="vertical"
-
-            android:visibility="invisible"
-            app:layout_anchor="@+id/recyclerViewAnimales"
-            app:layout_anchorGravity="center"
-           >
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/top_app_bar"
+            app:titleCentered="true">
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_gravity="center"
+                android:contentDescription="@string/petpal"
+                android:src="@drawable/logo_petpal" />
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Foto Perfil:" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="335dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    tools:srcCompat="@tools:sample/avatars" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_action_button"
-            style="?attr/floatingActionButtonLargeStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/fab_content_desc"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_plus_24" />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
+    <!-- PERFIL -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/Perfil"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_anchor="@+id/recyclerViewAnimales"
+        app:layout_anchorGravity="center">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_navigation_menu" />
+            android:layout_weight="1">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="335dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:srcCompat="@tools:sample/avatars" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Foto Perfil:" />
+        </LinearLayout>
+    </LinearLayout>
+    </FrameLayout>
+
+    <!-- LISTA MASCOTAS -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAnimales"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="85dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <!-- CHAT ROOMS -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewChatRooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+
+    <!-- BOTTOM NAVIGATION BAR -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_gravity="bottom"
+        app:menu="@menu/bottom_navigation_menu" />
+
+    <!-- FAB -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        style="?attr/floatingActionButtonLargeStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="98dp"
+        android:contentDescription="@string/fab_content_desc"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        app:srcCompat="@drawable/ic_plus_24" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+

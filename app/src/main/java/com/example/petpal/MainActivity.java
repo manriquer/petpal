@@ -275,7 +275,9 @@ public class MainActivity extends AppCompatActivity implements AddPetDialog.OnAg
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddPetDialog dialogo = new AddPetDialog();
+//                AddPetDialog dialogo = new AddPetDialog();
+//                dialogo.show(getSupportFragmentManager(), "Add pet dialog");
+                DialogAddPet dialogo = new DialogAddPet();
                 dialogo.show(getSupportFragmentManager(), "Add pet dialog");
 
                 animales.clear();
