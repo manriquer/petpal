@@ -33,7 +33,6 @@ public class ExampleDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.example_dialog, container, false);
 
         toolbar = view.findViewById(R.id.toolbar);
-
         return view;
     }
 
