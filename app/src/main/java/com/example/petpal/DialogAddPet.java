@@ -44,7 +44,6 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
     private EditText name, breed, weight, date;
 
     private EditText otroAnimalEditText;
-    private Button anyadir;
 
     private Spinner animalSpinner;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -75,7 +74,7 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
         date = view.findViewById(R.id.eanyo);
         weight = view.findViewById(R.id.epeso);
         animalSpinner= view.findViewById(R.id.spinner);
-        anyadir = view.findViewById(R.id.anyadir);
+
 
        otroAnimalEditText = view.findViewById(R.id.otroAnimalEditText);
 
@@ -132,76 +131,6 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
             }
         });
 
-        anyadir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Obtén el ID del usuario actual
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                if (currentUser == null) {
-                    // El usuario no ha iniciado sesión, maneja este caso según tus necesidades
-                    return;
-                }
-                String userId = currentUser.getUid();
-
-                String animal;
-                int lastPosition = animalSpinner.getAdapter().getCount() - 1;
-                String lastItem = animalSpinner.getAdapter().getItem(lastPosition).toString();
-                String selectedAnimal = animalSpinner.getSelectedItem().toString();
-
-                if (selectedAnimal.equals(lastItem)) {
-                    animal = otroAnimalEditText.getText().toString();
-                } else {
-                    animal = selectedAnimal;
-                }
-
-
-                String nombre = name.getText().toString();
-                String raza = breed.getText().toString();
-                String peso = weight.getText().toString();
-                String fechaNacimiento = date.getText().toString();
-
-                Bitmap imagen;
-
-                if (mImageView.getDrawable() == null) {
-                    imagen = BitmapFactory.decodeResource(getResources(), R.drawable.icono);
-                } else {
-                    imagen = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
-                }
-
-                if (nombre.isEmpty() || raza.isEmpty() || peso.isEmpty() || fechaNacimiento.isEmpty()) {
-                    Toast.makeText(getActivity(), R.string.complete_campos, Toast.LENGTH_SHORT).show();
-                } else {
-                    // Convierte la imagen a un arreglo de bytes
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    imagen.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                    byte[] imageBytes = baos.toByteArray();
-
-                    // Codifica los bytes en Base64
-                    String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-
-                    // Obtén la referencia de la base de datos para el usuario actual
-
-                    // Sign in success, update UI with the signed-in user's information
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    String displayName = user.getDisplayName();
-
-                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
-
-                    // Crea un nodo "mascotas" dentro del nodo del usuario actual
-                    DatabaseReference mascotasRef = userRef.child("mascotas");
-
-                    Pet pet = new Pet(animal, nombre, raza, peso, fechaNacimiento, base64Image);
-                    pet.setImagenBase64(base64Image);
-
-
-
-                    // Guarda la mascota en la base de datos usando la clave generada
-                    mascotasRef.child(nombre).setValue(pet);
-
-                    dismiss(); // Cerrar el diálogo
-                }
-            }
-        });
         return view;
     }
 

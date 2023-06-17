@@ -100,13 +100,6 @@
                     android:scaleType="centerCrop"
                     app:srcCompat="@android:drawable/ic_menu_camera" />
 
-                <Button
-                    android:id="@+id/anyadir"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClick"
-                    android:text="@string/anadir" />
-
             </LinearLayout>
         </ScrollView>
 
