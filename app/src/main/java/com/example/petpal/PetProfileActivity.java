@@ -83,10 +83,10 @@ public class PetProfileActivity extends AppCompatActivity {
                 getString(R.string.peso) + ": " + pet.getPeso();
         info.setText(infoText);
 
-        String imagen = getIntent().getStringExtra("imagen");
-        byte[] imageBytes = Base64.decode(imagen, Base64.DEFAULT);
-        Bitmap imagenBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-        foto.setImageBitmap(imagenBitmap);
+        byte[] imageBytes = getIntent().getByteArrayExtra("imagen");
+        Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+
+        foto.setImageBitmap(imageBitmap);
     }
 
     // ...

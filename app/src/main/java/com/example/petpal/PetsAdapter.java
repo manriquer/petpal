@@ -89,13 +89,13 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
             fechaNacimiento.setText(pet.getFechaNacimiento());
             imagen.setImageBitmap(pet.getImagenBitmap());
 
-            Bitmap imagen = pet.getImagenBitmap();
+            /*Bitmap imagen = pet.getImagenBitmap();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             imagen.compress(Bitmap.CompressFormat.PNG, 100, baos);
             byte[] imageBytes = baos.toByteArray();
 
             // Codifica los bytes en Base64
-            String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+            String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);*/
 
 
             // Maneja los eventos de clic aquí si es necesario
@@ -103,10 +103,16 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
                 @Override
                 public void onClick(View view) {
                     try {
+                        Bitmap imagen = pet.getImagenBitmap();
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        imagen.compress(Bitmap.CompressFormat.JPEG, 80, baos); // Ajusta la calidad de compresión según tus necesidades
+                        byte[] imageBytes = baos.toByteArray();
+
                         Intent intent = new Intent(contexto, PetProfileActivity.class);
                         intent.putExtra("pet", pet);
-                        intent.putExtra("imagen", base64Image);
+                        intent.putExtra("imagen", imageBytes);
                         contexto.startActivity(intent);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         Toast.makeText(contexto, "Error", Toast.LENGTH_SHORT).show();
