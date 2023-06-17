@@ -34,80 +34,62 @@
     <FrameLayout
         android:id="@+id/Perfil"
         android:layout_width="match_parent"
-        android:layout_height="645dp">
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_anchor="@+id/recyclerViewAnimales"
             app:layout_anchorGravity="center">
-
-
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
-
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Foto Perfil:" />
-
+                    android:text="@string/foto_perfil" />
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="335dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     tools:srcCompat="@tools:sample/avatars" />
-
             </LinearLayout>
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Nombre de Usuario:" />
-
+                    android:text="@string/nombre_de_usuario" />
                 <TextView
                     android:id="@+id/nombreUser"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Email" />
+                    android:text="@string/email_main" />
 
                 <TextView
                     android:id="@+id/emailUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
+                    android:layout_weight="1" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,16 +101,13 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Cambiar idioma:" />
+                    android:text="@string/cambiar_idioma" />
 
                 <Spinner
                     android:id="@+id/languageSpinner"
                     android:entries="@array/languages"
-
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
 
@@ -141,26 +120,21 @@
         </LinearLayout>
     </FrameLayout>
 
-    <!-- LISTA MASCOTAS -->
-
-    <!-- CHAT ROOMS -->
+    <!-- LISTA ANIMALES -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAnimales"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="85dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <!-- CHAT ROOMS-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewChatRooms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- BOTTOM NAVIGATION BAR -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

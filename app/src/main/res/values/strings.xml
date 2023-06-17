@@ -129,6 +129,10 @@
     <string name="add_custom_animal">Animal personalizado</string>
     <string name="add_data">Introduce los datos del animal</string>
     <string name="editar_datos">Editar</string>
+    <string name="foto_perfil">Foto Perfil:</string>
+    <string name="nombre_de_usuario">Nombre de Usuario:</string>
+    <string name="cambiar_idioma">Cambiar idioma:</string>
+    <string name="email_main">Email</string>
 
 
 </resources>
