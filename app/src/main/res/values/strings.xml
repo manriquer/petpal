@@ -116,6 +116,14 @@
     <string name="logo">Logo</string>
     <string name="login2">Login</string>
     <string name="add_pet">Añadir</string>
+    <string name="add_name">Nombre</string>
+    <string name="add_raza">Raza</string>
+    <string name="add_peso">Peso</string>
+    <string name="add_animal_type">¿Qué tipo de animal es?</string>
+    <string name="add_photo">¿Quieres añadir una foto?</string>
+    <string name="add_date_birth">Fecha de nacimiento</string>
+    <string name="add_custom_animal">Animal personalizado</string>
+    <string name="add_data">Introduce los datos del animal</string>
 
 
 </resources>

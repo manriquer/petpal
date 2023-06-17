@@ -36,66 +36,129 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <EditText
-                    android:id="@+id/enombre"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/introducir_nombre"
-                    android:inputType="text" />
-
-                <EditText
-                    android:id="@+id/eraza"
+                    android:text="@string/add_animal_type" />
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/introducir_raza"
-                    android:inputType="text" />
-
-                <EditText
-                    android:id="@+id/otroAnimalEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/introducir_otro_tipo_animal"
-                    android:visibility="gone" />
-
-                <EditText
-                    android:id="@+id/epeso"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/introducir_peso"
-                    android:inputType="none" />
-
+                    android:layout_height="wrap_content">
                 <Spinner
                     android:id="@+id/spinner"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/nombres" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/eanyo"
+<!--                <EditText-->
+<!--                    android:id="@+id/otroAnimalEditText"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/introducir_otro_tipo_animal"-->
+<!--                    android:visibility="gone" />-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/otroAnimalEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:height="50dp"
+                        android:hint="@string/add_custom_animal"
+                        android:visibility="gone"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/introducir_anyo"
-                    android:inputType="none" />
+                    android:text="@string/add_data"
+                    android:layout_marginTop="16dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/enombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:height="50dp"
+                        android:hint="@string/add_name" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/eraza"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:height="50dp"
+                        android:hint="@string/add_raza" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/epeso"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:height="50dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/add_peso"
+                        android:inputType="none">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+<!--                <EditText-->
+<!--                    android:id="@+id/epeso"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:ems="10"-->
+<!--                    android:focusable="false"-->
+<!--                    android:focusableInTouchMode="false"-->
+<!--                    android:hint="@string/introducir_peso"-->
+<!--                    android:inputType="none" />-->
+
+<!--                <EditText-->
+<!--                    android:id="@+id/eanyo"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:ems="10"-->
+<!--                    android:focusable="false"-->
+<!--                    android:focusableInTouchMode="false"-->
+<!--                    android:hint="@string/introducir_anyo"-->
+<!--                    android:inputType="none" />-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/eanyo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:height="50dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/add_date_birth"
+                        android:inputType="none">
+                    </com.google.android.material.textfield.TextInputEditText>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/foto"
-                    android:layout_width="92dp"
-                    android:layout_height="51dp"
-                    android:text="@string/foto" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_photo"
+                    android:layout_marginTop="16dp"/>
 
                 <ImageView
                     android:id="@+id/anyadirimagen"
-
                     android:layout_width="196dp"
                     android:layout_height="172dp"
+                    android:layout_gravity="center"
                     android:background="#FFFFFF"
                     android:scaleType="centerCrop"
                     app:srcCompat="@android:drawable/ic_menu_camera" />
