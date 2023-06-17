@@ -1,6 +1,8 @@
 package com.example.petpal;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -37,6 +39,7 @@ import java.util.Locale;
 
 import android.util.Base64;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
 
     FrameLayout ln;
     TextView nombre, email;
+    Button eliminarPerfil;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -78,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
         ln = findViewById(R.id.Perfil);
         nombre = findViewById(R.id.nombreUser);
         email = findViewById(R.id.emailUser);
+        eliminarPerfil = findViewById(R.id.eliminarperfil);
         recyclerViewChatRooms = findViewById(R.id.recyclerViewChatRooms);
         chatRoomsAdapter = new ChatRoomsAdapter(chatRooms, this);
         recyclerViewChatRooms.setLayoutManager(new LinearLayoutManager(this));
@@ -239,20 +244,70 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
                         recyclerViewAnimales.setVisibility(View.GONE);
 
                         recyclerViewChatRooms.setVisibility(View.GONE);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference usersRef = database.getReference("users");
 
                         ln.setVisibility(View.VISIBLE);
                         if (user != null) {
-                            // Obtén la URL de la foto de perfil del usuario
-                            String photoUrl = user.getPhotoUrl().toString();
-
-                            // Carga la imagen en un ImageView utilizando Picasso
-                            ImageView imageView = findViewById(R.id.imageView);
-                            Picasso.get().load(photoUrl).into(imageView);
+                            String photoUrl = user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null;
+                            if (photoUrl != null) {
+                                ImageView imageView = findViewById(R.id.imageView);
+                                Picasso.get().load(photoUrl).into(imageView);
+                            }
                             String username = user.getDisplayName();
 
+                            if (username.equals("")) {
+                                usersRef.child(user.getUid()).child("username").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        String username = dataSnapshot.getValue(String.class);
 
-                            nombre.setText(username);
+                                        // Aquí puedes utilizar el nombre obtenido de la base de datos
+                                        nombre.setText(username);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        // Manejar el error de consulta si es necesario
+                                    }
+                                });
+                            } else {
+                                // El nombre de usuario ya está disponible en la autenticación de usuario
+                                nombre.setText(username);
+                            }
+
                             email.setText(user.getEmail());
+
+                            eliminarPerfil.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                    builder.setMessage("¿Desea eliminar su cuenta?")
+                                            .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    String uid = user.getUid();
+
+                                                    // Eliminar usuario de la base de datos
+                                                    usersRef.child(uid).removeValue();
+                                                    // Acciones a realizar cuando se selecciona "Sí"
+                                                    user.delete();
+                                                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+
+                                            })
+                                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    // Acciones a realizar cuando se selecciona "No"
+                                                }
+                                            });
+                                    // Crear el diálogo y mostrarlo
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
+                            });
 
                         } else {
                             // El usuario no ha iniciado sesión
@@ -284,11 +339,9 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
                             }
                         });
 
-
-
-
                         return true;
                 }
+
                 return false;
             }
         });
