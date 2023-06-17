@@ -110,7 +110,11 @@
         <string name="auth_failed">Authentication failed.</string>
         <string name="error_save_username">Error saving username</string>
 
-
+    <string-array name="languages">
+        <item>Español</item>
+        <item>Italiano</item>
+        <item>Українська</item>
+    </string-array>
   <!--  traducir-->
     <string name="welcome_message">Bienvenido %s a PetPal</string>
     <string name="logo">Logo</string>

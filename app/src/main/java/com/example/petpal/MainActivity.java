@@ -1,6 +1,9 @@
 package com.example.petpal;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -30,10 +33,15 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import android.util.Base64;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAgregarAnimalListener {
 
@@ -57,8 +65,10 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    LinearLayout ln;
+    FrameLayout ln;
+    TextView nombre, email;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +76,14 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
         chatRooms = new ArrayList<>();
         selectedNavItem = R.id.navigation_home;
         ln = findViewById(R.id.Perfil);
+        nombre = findViewById(R.id.nombreUser);
+        email = findViewById(R.id.emailUser);
         recyclerViewChatRooms = findViewById(R.id.recyclerViewChatRooms);
         chatRoomsAdapter = new ChatRoomsAdapter(chatRooms, this);
         recyclerViewChatRooms.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewChatRooms.setAdapter(chatRoomsAdapter);
         showChatRooms();
+
 
 
 
@@ -235,10 +248,45 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
                             // Carga la imagen en un ImageView utilizando Picasso
                             ImageView imageView = findViewById(R.id.imageView);
                             Picasso.get().load(photoUrl).into(imageView);
+                            String username = user.getDisplayName();
+
+
+                            nombre.setText(username);
+                            email.setText(user.getEmail());
+
                         } else {
                             // El usuario no ha iniciado sesión
                             System.out.println("El usuario no ha iniciado sesión.");
                         }
+
+                        Spinner languageSpinner = findViewById(R.id.languageSpinner);
+                        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                String selectedLanguage = parent.getItemAtPosition(position).toString();
+                                switch (selectedLanguage) {
+                                    case "Español":
+                                        setLocale("es");
+                                        break;
+                                    case "Italiano":
+                                        setLocale("it");
+                                        break;
+                                    case "Українська":
+                                        setLocale("uk");
+                                        break;
+                                }
+                                recreate();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                                // No se necesita implementar en este caso
+                            }
+                        });
+
+
+
+
                         return true;
                 }
                 return false;
@@ -281,7 +329,9 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
                 DialogAddPet dialogo = new DialogAddPet();
                 dialogo.show(getSupportFragmentManager(), "Add pet dialog");
 
+/*
                 animales.clear();
+*/
             }
         });
 
@@ -359,6 +409,13 @@ public class MainActivity extends AppCompatActivity implements DialogAddPet.OnAg
         });
 
 
+    }
+    private void setLocale(String languageCode) {
+        Locale locale = new Locale(languageCode);
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
 
