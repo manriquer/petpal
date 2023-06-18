@@ -136,6 +136,7 @@
     <string name="asunto">Asunto</string>
     <string name="cita">¿Cita en el veterinario?¿Recordartorio? Apúntalo:</string>
     <string name="fecha">Fecha</string>
+    <string name="hora">Hora</string>
 
 
 </resources>
