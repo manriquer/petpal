@@ -19,7 +19,6 @@ public class NotificationReceiver extends BroadcastReceiver {
         String mensaje = intent.getStringExtra("mensaje");
         String titulo = intent.getStringExtra("titulo");
 
-        // Crea el canal de notificación si la versión de Android es compatible
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence channelName = "Notification Channel";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -31,15 +30,13 @@ public class NotificationReceiver extends BroadcastReceiver {
             notificationManager.createNotificationChannel(channel);
         }
 
-        // Construye la notificación
         Notification.Builder builder = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             builder = new Notification.Builder(context, CHANNEL_ID)
                     .setContentTitle(titulo)
                     .setContentText(mensaje)
-                    .setSmallIcon(R.drawable.ic_plus_24);
+                    .setSmallIcon(R.drawable.chat48px);
         }
-
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }

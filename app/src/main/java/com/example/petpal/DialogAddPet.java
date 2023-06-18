@@ -7,9 +7,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
+
 import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,24 +23,27 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.IOException;
+
 import android.util.Base64;
+
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     public static final String TAG = "dialog_add_pet";
     private Toolbar toolbar;
@@ -48,7 +54,6 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
     private static final int REQUEST_IMAGE_GALLERY = 2;
     private ImageView mImageView;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,10 +72,9 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
         breed = view.findViewById(R.id.eraza);
         date = view.findViewById(R.id.eanyo);
         weight = view.findViewById(R.id.epeso);
-        animalSpinner= view.findViewById(R.id.spinner);
+        animalSpinner = view.findViewById(R.id.spinner);
 
-
-       otroAnimalEditText = view.findViewById(R.id.otroAnimalEditText);
+        otroAnimalEditText = view.findViewById(R.id.otroAnimalEditText);
 
         weight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,28 +132,19 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
         return view;
     }
 
-
-
-
-
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar.setNavigationOnClickListener(v -> dismiss());
-//        toolbar.setTitle("Añade una nueva mascota");
         toolbar.inflateMenu(R.menu.dialog_add_pet);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.action_save) {
-
-                    // Obtén el ID del usuario actual
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if (currentUser == null) {
-                        // El usuario no ha iniciado sesión, maneja este caso según tus necesidades
-//                        return;
+                        // No inicia sesión
                     }
                     String userId = currentUser.getUid();
 
@@ -163,7 +158,6 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
                     } else {
                         animal = selectedAnimal;
                     }
-
 
                     String nombre = name.getText().toString();
                     String raza = breed.getText().toString();
@@ -181,32 +175,25 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
                     if (nombre.isEmpty() || raza.isEmpty() || peso.isEmpty() || fechaNacimiento.isEmpty()) {
                         Toast.makeText(getActivity(), R.string.complete_campos, Toast.LENGTH_SHORT).show();
                     } else {
-                        // Convierte la imagen a un arreglo de bytes
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         imagen.compress(Bitmap.CompressFormat.PNG, 100, baos);
                         byte[] imageBytes = baos.toByteArray();
 
-                        // Codifica los bytes en Base64
                         String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
-                        // Obtén la referencia de la base de datos para el usuario actual
-
-                        // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         String displayName = user.getDisplayName();
 
                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
-                        // Crea un nodo "mascotas" dentro del nodo del usuario actual
                         DatabaseReference mascotasRef = userRef.child("mascotas");
 
                         Pet pet = new Pet(animal, nombre, raza, peso, fechaNacimiento, base64Image);
                         pet.setImagenBase64(base64Image);
 
-                        // Guarda la mascota en la base de datos usando la clave generada
                         mascotasRef.child(nombre).setValue(pet);
 
-                        dismiss(); // Cerrar el diálogo
+                        dismiss();
                     }
                     dismiss();
                     return true;
@@ -229,11 +216,8 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
         }
     }
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        // Aquí obtendrás la fecha seleccionada
-        // Conviértela al formato deseado y establece el texto en dateEditText
         String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
         date.setText(selectedDate);
     }
@@ -261,8 +245,8 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
                 DialogAddPet.this.weight.setText(weight);
             }
         });
-        builder.setNegativeButton(getString(R.string.dialog_button_cancel), null);
 
+        builder.setNegativeButton(getString(R.string.dialog_button_cancel), null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -273,8 +257,6 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
                 getResources().getString(R.string.option_choose_gallery),
                 getResources().getString(R.string.option_cancel)
         };
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()); // Pasar getActivity() en lugar de this
         builder.setTitle(R.string.dialog_title);
 
@@ -297,7 +279,6 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
                     dialog.dismiss();
                 }
             }
-
         });
         builder.show();
     }
@@ -333,6 +314,7 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
         void onAgregarAnimal(String animal, String nombre, String raza, String peso, String fechaNacimiento, Bitmap imagen);
 
     }
+
     public class DateDialog extends DialogFragment {
 
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -344,10 +326,6 @@ public class DialogAddPet extends DialogFragment implements DatePickerDialog.OnD
             return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
         }
 
-
     }
-
-
-
 
 }

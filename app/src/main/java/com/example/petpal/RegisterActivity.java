@@ -2,7 +2,6 @@ package com.example.petpal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,7 +26,6 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
-
     private DatabaseReference databaseReference;
 
     @Override
@@ -64,7 +61,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // Obtén la referencia de la base de datos
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
@@ -93,10 +89,8 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Obtén la referencia de la base de datos
                 databaseReference = FirebaseDatabase.getInstance().getReference();
 
-                // Crear el usuario en Firebase
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -106,14 +100,11 @@ public class RegisterActivity extends AppCompatActivity {
                                     try {
                                         FirebaseUser currentUser = mAuth.getCurrentUser();
                                         String userId = currentUser.getUid();
-
-                                        // Guardar el nombre de usuario en la base de datos
                                         databaseReference.child("users").child(userId).child("username").setValue(userName);
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                         Toast.makeText(RegisterActivity.this, getString(R.string.error_save_username), Toast.LENGTH_SHORT).show();
                                     }
-
                                     Toast.makeText(RegisterActivity.this, getString(R.string.account_created), Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(RegisterActivity.this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();

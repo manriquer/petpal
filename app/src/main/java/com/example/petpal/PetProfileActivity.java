@@ -2,7 +2,6 @@ package com.example.petpal;
 
 import android.view.View;
 import android.widget.TextView;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,8 +39,6 @@ public class PetProfileActivity extends AppCompatActivity {
         foto = findViewById(R.id.foto);
         info = findViewById(R.id.info);
         darpaseo = findViewById(R.id.darpaseo);
-//        anyadirreco = findViewById(R.id.recordatorio);
-//        chat = findViewById(R.id.chat);
         reminder = findViewById(R.id.reminder);
 
         // Obtén el objeto Pet del Intent
@@ -60,15 +57,8 @@ public class PetProfileActivity extends AppCompatActivity {
         foto.setImageBitmap(imageBitmap);
     }
 
-    // ...
-
     public void paseo(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
-    }
-
-    public void reco(View view) {
-        Intent intent = new Intent(this, DistanceActivity.class);
         startActivity(intent);
     }
 
@@ -84,14 +74,13 @@ public class PetProfileActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Acción que deseas ejecutar si el usuario confirma
+
             }
         });
 
         builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Acción que deseas ejecutar si el usuario cancela
                 dialog.cancel();
             }
         });

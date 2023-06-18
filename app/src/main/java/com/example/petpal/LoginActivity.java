@@ -3,7 +3,6 @@ package com.example.petpal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -136,11 +135,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-                            // Obtén la referencia de la base de datos
                             databaseReference = FirebaseDatabase.getInstance().getReference();
 
-                            // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             String displayName = user.getDisplayName();
                             String welcomeMessage = getString(R.string.welcome_message, displayName);
@@ -148,16 +144,13 @@ public class LoginActivity extends AppCompatActivity {
 
                             databaseReference.child("users").child(userId).child("username").setValue(displayName);
 
-
                             Toast.makeText(LoginActivity.this, welcomeMessage, Toast.LENGTH_SHORT).show();
                             updateUI(user);
 
-                            // Redirect to MainActivity
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             updateUI(null);
                         }

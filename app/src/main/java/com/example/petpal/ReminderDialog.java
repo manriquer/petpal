@@ -12,10 +12,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
-
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -75,30 +73,23 @@ public class ReminderDialog extends DialogFragment implements DatePickerDialog.O
         Toast.makeText(requireContext(), "Notificación programada", Toast.LENGTH_SHORT).show();
     }
 
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar.setNavigationOnClickListener(v -> dismiss());
 //        toolbar.setTitle("Some Title");
-        toolbar.inflateMenu(R.menu.example_dialog);
+        toolbar.inflateMenu(R.menu.reminder_dialog);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.action_save) {
-
-//                    String fecha = "18/06/2023";
-//                    String hora = "10:21";
-//                    String mensaje = "¡Es hora de tu notificación!";
-//                    NotificationUtils.scheduleNotification(requireContext(), fecha, hora, mensaje);
                     guardarNotificacion();
                     dismiss();
                     return true;
                 }
                 return false;
             }
-
         });
     }
 
@@ -114,17 +105,16 @@ public class ReminderDialog extends DialogFragment implements DatePickerDialog.O
         }
     }
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
         datePicker.setText(selectedDate);
     }
 
-
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         String selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute);
         timePicker.setText(selectedTime);
     }
+
 }

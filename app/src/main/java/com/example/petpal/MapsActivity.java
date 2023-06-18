@@ -71,12 +71,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (currentUser != null) {
             String userId = currentUser.getUid();
 
-            // Actualización: Utiliza "users" en lugar de "ubicaciones" como colección base
             userLocationRef = FirebaseDatabase.getInstance().getReference("users");
 
             userMarkers = new HashMap<>();
 
-            // Obtener todas las ubicaciones de usuarios en la base de datos
             userLocationRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,7 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Manejar errores, si es necesario
+
                 }
             });
         }
@@ -136,7 +134,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String latitude = String.valueOf(currentLocation.getLatitude());
             String longitude = String.valueOf(currentLocation.getLongitude());
 
-            // Actualización: Guarda latitud y longitud como campos en lugar de un objeto LatLng
             userLocationRef.child(userId).child("ubicacion").child("latitude").setValue(latitude);
             userLocationRef.child(userId).child("ubicacion").child("longitude").setValue(longitude);
         }
@@ -157,21 +154,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public boolean onMarkerClick(Marker marker) {
                 String otherUserId = null;
 
-                // Obtén el ID de usuario de la otra persona
                 for (Map.Entry<String, Marker> entry : userMarkers.entrySet()) {
                     if (entry.getValue().equals(marker)) {
                         otherUserId = entry.getKey();
                         break;
                     }
                 }
-
                 return false;
             }
         });
     }
 
     private String generateChatId(String userId1, String userId2) {
-        // Concatena los IDs de usuario en un orden específico
         String concatenatedIds;
         if (userId1.compareTo(userId2) < 0) {
             concatenatedIds = userId1 + userId2;
@@ -179,7 +173,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             concatenatedIds = userId2 + userId1;
         }
 
-        // Genera un hash único a partir de la concatenación
         return Integer.toString(concatenatedIds.hashCode());
     }
 

@@ -8,7 +8,6 @@
 
     tools:context="com.example.petpal.ChatActivity">
 
-
     <ListView
         android:id="@+id/list_view"
         android:layout_width="379dp"

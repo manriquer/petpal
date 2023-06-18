@@ -25,20 +25,14 @@ import java.util.List;
 
 public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder> {
 
-    // Dentro de la clase PetsAdapter
     private DatabaseReference databaseRef;
-
     private List<Pet> animales;
     private Context contexto;
 
-
-
-    // Constructor y métodos existentes aquí...
     public PetsAdapter(List<Pet> animales, Context contexto) {
         this.animales = animales;
         this.contexto = contexto;
 
-        // Obtener referencia a la base de datos
         databaseRef = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -62,7 +56,6 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
 
     public class PetViewHolder extends RecyclerView.ViewHolder {
 
-        // Declaraciones de vistas aquí...
         TextView nombre;
         TextView raza;
         TextView animal;
@@ -72,7 +65,6 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
 
         public PetViewHolder(View itemView) {
             super(itemView);
-
             animal = itemView.findViewById(R.id.animal);
             nombre = itemView.findViewById(R.id.nombre_animal);
             raza = itemView.findViewById(R.id.raza_animal);
@@ -89,23 +81,13 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
             fechaNacimiento.setText(pet.getFechaNacimiento());
             imagen.setImageBitmap(pet.getImagenBitmap());
 
-            /*Bitmap imagen = pet.getImagenBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            imagen.compress(Bitmap.CompressFormat.PNG, 100, baos);
-            byte[] imageBytes = baos.toByteArray();
-
-            // Codifica los bytes en Base64
-            String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);*/
-
-
-            // Maneja los eventos de clic aquí si es necesario
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     try {
                         Bitmap imagen = pet.getImagenBitmap();
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        imagen.compress(Bitmap.CompressFormat.JPEG, 80, baos); // Ajusta la calidad de compresión según tus necesidades
+                        imagen.compress(Bitmap.CompressFormat.JPEG, 80, baos);
                         byte[] imageBytes = baos.toByteArray();
 
                         Intent intent = new Intent(contexto, PetProfileActivity.class);
@@ -120,7 +102,6 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
                 }
             });
 
-
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -128,10 +109,7 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
                     return true;
                 }
             });
-
-
         }
-
 
         private void showDeleteDialog(final int position) {
             AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
@@ -148,29 +126,20 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
                             if (position >= 0 && position < animales.size()) {
                                 Pet pet = animales.get(position);
 
-                                // Eliminar la mascota de la lista
                                 animales.remove(position);
                                 notifyDataSetChanged();
 
-
                                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                                 if (currentUser == null) {
-                                    // El usuario no ha iniciado sesión, maneja este caso según tus necesidades
                                     return;
                                 }
                                 String userId = currentUser.getUid();
-
                                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
-                                // Crea un nodo "mascotas" dentro del nodo del usuario actual
                                 DatabaseReference mascotasRef = userRef.child("mascotas");
-                                // Obtener el ID de la mascota
                                 String petId = pet.getNombre();
-
                                 mascotasRef.child(pet.getNombre().toString()).removeValue();
-
                                 String deleteToastMessage = contexto.getString(R.string.toast_delete_success, petId);
                                 Toast.makeText(contexto, deleteToastMessage, Toast.LENGTH_SHORT).show();
-
                                 animales.clear();
                             }
                         }
@@ -178,14 +147,6 @@ public class PetsAdapter extends RecyclerView.Adapter<PetsAdapter.PetViewHolder>
                     .setNegativeButton(negativeButton, null)
                     .show();
         }
-
-
-    }
-
-
-    public void addAnimal(Pet pet) {
-       /* animales.add(pet);
-        notifyDataSetChanged();*/
     }
 }
 

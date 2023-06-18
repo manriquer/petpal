@@ -1,10 +1,6 @@
 package com.example.petpal;
 
 import android.graphics.Bitmap;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
 
 public class Pet implements Serializable {
@@ -13,21 +9,14 @@ public class Pet implements Serializable {
     private String nombre;
     private String raza;
     private String peso;
-
     private String fechaNacimiento;
-        // ...
-        private String imagenBase64;
+    private String imagenBase64;
 
-    private transient Bitmap imagenBitmap; // Aquí asumimos que la foto es un recurso drawable
-    // Constructor, getters y setters
-
+    private transient Bitmap imagenBitmap;
 
     public void setImagenBase64(String imagenBase64) {
-            this.imagenBase64 = imagenBase64;
-        }
-
-        // Resto de métodos y atributos de la clase Pet
-
+        this.imagenBase64 = imagenBase64;
+    }
 
     public String getImagenBase64() {
         return imagenBase64;
@@ -41,9 +30,6 @@ public class Pet implements Serializable {
         this.imagenBitmap = imagenBitmap;
     }
 
-
-
-
     @Override
     public String toString() {
         return "Pet{" +
@@ -55,7 +41,7 @@ public class Pet implements Serializable {
                 '}';
     }
 
-    public Pet(String animal, String nombre, String raza, String peso, String fechaNacimiento,String imagenBase64) {
+    public Pet(String animal, String nombre, String raza, String peso, String fechaNacimiento, String imagenBase64) {
         this.animal = animal;
         this.nombre = nombre;
         this.raza = raza;
@@ -112,10 +98,6 @@ public class Pet implements Serializable {
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
-
-
-
 
     public Pet() {
     }

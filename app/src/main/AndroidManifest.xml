@@ -78,11 +78,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PetProfileActivity" />
         </activity>
-
-        <activity
-            android:name=".DistanceActivity"
-            android:exported="false" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC7tdpxsHi1k3p22Xbgy1EkJxf2w4vNWo0" />

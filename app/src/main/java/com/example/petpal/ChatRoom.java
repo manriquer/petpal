@@ -2,10 +2,7 @@ package com.example.petpal;
 
 public class ChatRoom {
     private String roomId;
-
     private String roomName;
-    // Constructor, getters y setters
-
 
     public ChatRoom(String roomName) {
         this.roomName = roomName;
@@ -19,9 +16,7 @@ public class ChatRoom {
         this.roomName = roomName;
     }
 
-    public ChatRoom() {
-
-    }
+    public ChatRoom() { }
 
     public String getRoomId() {
         return roomId;
@@ -30,6 +25,5 @@ public class ChatRoom {
     public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
-
 
 }

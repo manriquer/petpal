@@ -9,8 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.petpal.ChatMessage;
-import com.example.petpal.R;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +28,6 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseListAdapter<ChatMessage> adapter;
     private FirebaseUser currentUser;
     private DatabaseReference chatRef;
-
     private TextView messageUser;
 
     @Override
@@ -40,15 +37,10 @@ public class ChatActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.list_view);
         EditText input = findViewById(R.id.input);
-
         String chatName = getIntent().getStringExtra("chatName");
-
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentUserId = currentUser.getUid();
-
-
         chatRef = FirebaseDatabase.getInstance().getReference("chats").child(chatName);
-
         displayChatMessages(listView);
 
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
@@ -75,10 +67,7 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             chatRef.push().setValue(new ChatMessage(messageText, "Usuario_Anónimo"));
-
                         }
-
-
                     });
                     input.setText("");
                 }
@@ -109,7 +98,6 @@ public class ChatActivity extends AppCompatActivity {
                 messageTime.setText(formattedTime);
             }
         };
-
         listView.setAdapter(adapter);
     }
 
