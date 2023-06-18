@@ -14,54 +14,6 @@
         android:layout_marginRight="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:orientation="vertical">-->
-
-        <!--            <ImageView-->
-        <!--                android:id="@+id/foto"-->
-        <!--                android:layout_width="100dp"-->
-        <!--                android:layout_height="100dp"-->
-        <!--                android:scaleType="centerCrop" />-->
-
-        <!--            <TextView-->
-        <!--                android:id="@+id/info"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="@string/info_text" />-->
-
-        <!--            <Button-->
-        <!--                android:id="@+id/darpaseo"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:onClick="paseo"-->
-        <!--                android:text="@string/dar_paseo" />-->
-
-        <!--            <Button-->
-        <!--                android:id="@+id/recordatorio"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:onClick="reco"-->
-        <!--                android:text="@string/anadir_recordatorio" />-->
-
-        <!--            <Button-->
-        <!--                android:id="@+id/reminder"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:onClick="reminder"-->
-        <!--                android:text="@string/anadir_recordatorio" />-->
-
-        <!--            <Button-->
-        <!--                android:id="@+id/chat"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:text="@string/chat" />-->
-
-        <!--        </LinearLayout>-->
-
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card"
             style="?attr/materialCardViewFilledStyle"
@@ -86,29 +38,6 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <!--                    <TextView-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:text="Titulo"-->
-                    <!--                        android:textAppearance="?attr/textAppearanceTitleMedium"-->
-                    <!--                        />-->
-                    <!--                    <TextView-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="8dp"-->
-                    <!--                        android:text="Secondarytext"-->
-                    <!--                        android:textAppearance="?attr/textAppearanceBodyMedium"-->
-                    <!--                        android:textColor="?android:attr/textColorSecondary"-->
-                    <!--                        />-->
-                    <!--                    <TextView-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="16dp"-->
-                    <!--                        android:text="Supporting text"-->
-                    <!--                        android:textAppearance="?attr/textAppearanceBodyMedium"-->
-                    <!--                        android:textColor="?android:attr/textColorSecondary"-->
-                    <!--                        />-->
-
                     <TextView
                         android:id="@+id/info"
                         android:layout_width="wrap_content"
@@ -127,15 +56,6 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/darpaseo"
-                        style="?attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:onClick="paseo"
-                        android:text="@string/dar_paseo" />
-
-                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/reminder"
                         style="?attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
@@ -144,41 +64,17 @@
                         android:text="@string/anadir_recordatorio" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/editPet"
+                        android:id="@+id/darpaseo"
+                        style="?attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/editar_datos" />
+                        android:layout_marginEnd="8dp"
+                        android:onClick="paseo"
+                        android:text="@string/conoce_gente_cerca" />
+
+
+
                 </LinearLayout>
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_margin="8dp"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <com.google.android.material.button.MaterialButton-->
-<!--                        android:id="@+id/darpaseo"-->
-<!--                        style="?attr/borderlessButtonStyle"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:onClick="paseo"-->
-<!--                        android:text="@string/dar_paseo" />-->
-
-<!--                    <com.google.android.material.button.MaterialButton-->
-<!--                        android:id="@+id/reminder"-->
-<!--                        style="?attr/borderlessButtonStyle"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:onClick="reminder"-->
-<!--                        android:text="@string/anadir_recordatorio" />-->
-
-<!--                    <com.google.android.material.button.MaterialButton-->
-<!--                        android:id="@+id/editPet"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/editar_datos" />-->
-<!--                </LinearLayout>-->
 
             </LinearLayout>
 
